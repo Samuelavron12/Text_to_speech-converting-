@@ -1,0 +1,260 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(120deg,#f4f6fb,#eef1ff);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* AUTH CARD */
+.auth-container{
+    width:380px;
+    padding:35px;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    text-align:center;
+}
+.auth-container:hover{
+    width:390px;
+    padding:40px;
+    background:white;
+    border-radius:12px;
+    box-shadow:#000;
+    text-align:center;
+}
+
+/* TITLE */
+.auth-container h2{
+    margin-bottom:25px;
+}
+
+/* FORM */
+.auth-container form{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+/* INPUTS */
+.auth-container input{
+    width:90%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+/* BUTTON */
+.auth-container button{
+    width:95%;
+    padding:12px;
+    margin-top:15px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.auth-container button:hover{
+    background:#0056b3;
+}
+
+.auth-container p{
+    margin-top:15px;
+}
+
+/* logged in redirection */
+
+.auth-containers{
+    width:380px;
+    padding:35px;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    text-align:center;
+}
+.auth-containers:hover{
+    width:390px;
+    padding:40px;
+    background:white;
+    border-radius:12px;
+    box-shadow:#000;
+    text-align:center;
+}
+
+/* TITLE */
+.auth-containers h2{
+    margin-bottom:25px;
+}
+
+
+/* BUTTON */
+.auth-containers button{
+    width:95%;
+    padding:12px;
+    margin-top:15px;
+    background:#007bff;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+.auth-containers button:hover{
+    background:#3f33e6;
+}
+
+.auth-containers p{
+    margin-top:15px;
+}
+
+/* tts working styling very important */
+.tts-box{
+    width:700px;
+    height: 500px;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    text-align:center;
+}
+textarea{
+    width:95%;
+    height:150px;
+    padding:15px;
+    border-radius:10px;
+    border:2px solid #000000;
+    resize:none;
+}
+select, button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    border-radius:6px;
+}
+.tts-box a{
+    font-size: 15px;
+    text-decoration: none;
+    padding: 20px;
+    border: 1px solid #000;
+}
+
+@media (max-width:1024px){
+    .auth-container{
+        width:500px;
+        height: 350px;
+        padding:35px;
+        background:#fff;
+        border-radius:12px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.15);
+        text-align:center;
+    }
+
+    .auth-container:hover{
+        width:550px;
+        padding:40px;
+        background:white;
+        border-radius:12px;
+        box-shadow:#000;
+        text-align:center;
+    }
+    
+    /* TITLE */
+    .auth-container h2{
+        margin-bottom:25px;
+        font-size: 30px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    
+    /* FORM */
+    .auth-container form{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+    }
+    
+    /* INPUTS */
+    .auth-container input{
+        width:90%;
+        padding:15px;
+        margin:10px 0;
+        border-radius:10px;
+        border:1px solid #ccc;
+        font-size: 20px;
+    }
+    
+    /* BUTTON */
+    .auth-container button{
+        width:95%;
+        padding:12px;
+        margin-top:15px;
+        background:#007bff;
+        color:white;
+        border:none;
+        border-radius:10px;
+        font-size:20px;
+        cursor:pointer;
+    }
+    
+    .auth-container button:hover{
+        background:#0056b3;
+    }
+    
+    .auth-container p{
+        margin-top:20px;
+    }
+    
+    /* logged in dashboard redirection with auth-containers */
+    .auth-containers{
+        width:380px;
+        padding:35px;
+        background:#fff;
+        border-radius:12px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.15);
+        text-align:center;
+    }
+    .auth-containers:hover{
+        width:390px;
+        padding:40px;
+        background:white;
+        border-radius:12px;
+        box-shadow:#000;
+        text-align:center;
+    }
+    
+    /* BUTTON */
+    .auth-containers button{
+    width:95%;
+    padding:12px;
+    margin-top:15px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.auth-containers button:hover{
+    background:#0056b3;
+}
+
+    /* TITLE */
+    .auth-containers h2{
+        margin-bottom:25px;
+        font-size: 35px;
+        font-weight: 600;
+    }
+   
+    .auth-container p{
+        margin-top:15px;
+        font-size: 25px;
+    }
+}
