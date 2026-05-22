@@ -1,0 +1,249 @@
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:Arial, sans-serif;
+    }
+    
+    body{
+        background:#f5f6ff;
+    }
+    
+    /* APP */
+    .app{
+        display:flex;
+    }
+    
+    /* MAIN */
+    .mainContent{
+        margin-left:260px;
+        width:100%;
+        padding:40px;
+    }
+    
+    /* HEADER */
+    .topHeader h1{
+        font-size:42px;
+        margin-bottom:10px;
+    }
+    
+    .topHeader p{
+        color:#777;
+        margin-bottom:30px;
+    }
+    
+    /* GRID */
+    .ttsContainer{
+        display:grid;
+        grid-template-columns:2fr 1fr;
+        gap:25px;
+    }
+    
+    /* LEFT PANEL */
+    .leftPanel{
+        background:white;
+        border-radius:24px;
+        padding:25px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+    
+    /* TABS */
+    .tabs{
+        display:flex;
+        gap:10px;
+        margin-bottom:20px;
+    }
+    
+    .tabs button{
+        flex:1;
+        padding:16px;
+        border:none;
+        border-radius:14px;
+        cursor:pointer;
+        background:#f2f3ff;
+        font-size:15px;
+    }
+    
+    .activeTab{
+        background:linear-gradient(
+            90deg,
+            #6c63ff,
+            #8c84ff
+        ) !important;
+    
+        color:white;
+    }
+    
+    /* TEXTAREA */
+    textarea{
+        width:100%;
+        height:420px;
+        border:1px solid #eee;
+        border-radius:18px;
+        padding:20px;
+        resize:none;
+        outline:none;
+        font-size:16px;
+    }
+    
+    /* BOTTOM */
+    .bottomEditor{
+        margin-top:10px;
+        color:#888;
+    }
+    
+    /* BUTTON */
+    #speakBtn{
+        width:100%;
+        margin-top:25px;
+        padding:18px;
+        border:none;
+        border-radius:16px;
+        background:linear-gradient(
+            90deg,
+            #6c63ff,
+            #8c84ff
+        );
+    
+        color:white;
+        font-size:18px;
+        cursor:pointer;
+    }
+    
+    /* RIGHT PANEL */
+    .rightPanel{
+        display:flex;
+        flex-direction:column;
+        gap:20px;
+    }
+    
+    /* CONTROL CARD */
+    .controlCard{
+        background:white;
+        border-radius:20px;
+        padding:22px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+    
+    .controlCard h3{
+        margin-bottom:15px;
+    }
+    
+    /* SELECT */
+    select{
+        width:100%;
+        padding:14px;
+        border-radius:14px;
+        border:1px solid #ddd;
+        outline:none;
+    }
+    
+    /* RANGE */
+    input[type=range]{
+        width:100%;
+    }
+    
+    /* LABEL ROW */
+    .labelRow{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:15px;
+    }
+    
+    /* OUTPUT */
+    .outputSection{
+        margin-top:30px;
+    }
+    
+    .outputBox{
+        background:white;
+        border-radius:24px;
+        padding:40px;
+        text-align:center;
+        box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+    
+    .audioIcon{
+        font-size:60px;
+        margin-bottom:20px;
+    }
+    
+    .outputBox h3{
+        margin-bottom:10px;
+    }
+    
+    .outputBox p{
+        color:#777;
+        margin-bottom:25px;
+    }
+    
+    audio{
+        width:100%;
+    }
+    
+    /* FEATURES */
+    .features{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:20px;
+        margin-top:30px;
+    }
+    
+    .feature{
+        background:white;
+        padding:30px;
+        border-radius:20px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+    
+    .feature h3{
+        margin-bottom:10px;
+    }
+    audio{
+        width:100%;
+        margin-top:25px;
+        border-radius:12px;
+    }
+    .audioControls{
+        display:flex;
+        gap:20px;
+        margin-top:25px;
+    }
+    
+    .audioControls button{
+        flex:1;
+        padding:16px;
+        border:none;
+        border-radius:14px;
+        cursor:pointer;
+        background:linear-gradient(
+            90deg,
+            #6c63ff,
+            #8c84ff
+        );
+    
+        color:white;
+        font-size:16px;
+    }
+
+
+    
+    /* RESPONSIVE */
+    @media(max-width:992px){
+    
+        .mainContent{
+            margin-left:0;
+            padding:20px;
+        }
+    
+        .ttsContainer{
+            grid-template-columns:1fr;
+        }
+    
+        .features{
+            grid-template-columns:1fr;
+        }
+    
+    }

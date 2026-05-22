@@ -1,61 +1,88 @@
 <?php
 
 if(!isset($_FILES['file'])){
-    echo "No file uploaded";
     exit;
 }
 
-$fileName = $_FILES['file']['name'];
-$fileTmp  = $_FILES['file']['tmp_name'];
-$ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+$file = $_FILES['file'];
+
+$extension = strtolower(
+    pathinfo(
+        $file['name'],
+        PATHINFO_EXTENSION
+    )
+);
+
+$temp = $file['tmp_name'];
 
 $text = "";
 
-/* TXT */
-if($ext == "txt"){
-    $text = file_get_contents($fileTmp);
+// TXT
+if($extension == "txt"){
+
+    $text = file_get_contents($temp);
+
 }
 
-/* DOCX */
-elseif($ext == "docx"){
+// HTML
+elseif($extension == "html"){
+
+    $text = strip_tags(
+        file_get_contents($temp)
+    );
+
+}
+
+// CSV
+elseif($extension == "csv"){
+
+    $text = file_get_contents($temp);
+
+}
+
+// JSON
+elseif($extension == "json"){
+
+    $text = file_get_contents($temp);
+
+}
+
+// XML
+elseif($extension == "xml"){
+
+    $text = strip_tags(
+        file_get_contents($temp)
+    );
+
+}
+
+// DOCX
+elseif($extension == "docx"){
+
     $zip = new ZipArchive;
-    if($zip->open($fileTmp) === TRUE){
-        $content = $zip->getFromName('word/document.xml');
+
+    if($zip->open($temp) === TRUE){
+
+        $data =
+        $zip->getFromName(
+            "word/document.xml"
+        );
+
         $zip->close();
-        $text = strip_tags($content);
+
+        $text = strip_tags($data);
+
     }
+
 }
 
-/* PDF (basic) */
-elseif($ext == "pdf"){
-    $content = file_get_contents($fileTmp);
-    $text = preg_replace('/[^(\x20-\x7F)]*/','',$content);
+// PDF
+elseif($extension == "pdf"){
+
+    $text =
+    "PDF extraction requires PDF parser library.";
+
 }
 
-/* HTML */
-elseif($ext == "html"){
-    $text = strip_tags(file_get_contents($fileTmp));
-}
-
-/* CSV */
-elseif($ext == "csv"){
-    $rows = array_map('str_getcsv', file($fileTmp));
-    foreach($rows as $row){
-        $text .= implode(" ",$row)."\n";
-    }
-}
-
-/* JSON */
-elseif($ext == "json"){
-    $json = file_get_contents($fileTmp);
-    $data = json_decode($json,true);
-    $text = print_r($data,true);
-}
-
-/* XML */
-elseif($ext == "xml"){
-    $xml = simplexml_load_file($fileTmp);
-    $text = strip_tags($xml->asXML());
-}
-
-echo $text;
+echo trim($text);
+?>

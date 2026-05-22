@@ -240,11 +240,11 @@ select, button{
     border-radius:6px;
     font-size:16px;
     cursor:pointer;
-}
+    }
 
-.auth-containers button:hover{
+    .auth-containers button:hover{
     background:#0056b3;
-}
+    }
 
     /* TITLE */
     .auth-containers h2{
