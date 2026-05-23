@@ -22,35 +22,26 @@ content="width=device-width, initial-scale=1.0">
 
 <div class="app">
 
-    <!-- SIDEBAR -->
-    <?php include "../includes/header.php"; ?>
+    <!-- SIDEBAR  ---->
+    <?php include "../includes/header.php"; ?>  
 
     <!-- MAIN CONTENT -->
+    <div class="mobileTop">
+        <div class="mobileLogo">
+            🔊 Nem Speak
+        </div>
+        <button id="menuBtn">
+            ☰
+        </button>
+    </div>
     <main class="mainContent">
 
         <!-- HEADER -->
         <div class="topHeader">
-        <div class="mobileTop">
-
-    <div class="mobileLogo">
-
-        🔊 Nem Speak
-
-    </div>
-
-    <button id="menuBtn">
-
-        ☰
-
-    </button>
-
-</div>
             <h1>Text to Speech</h1>
-
             <p>
-                Convert text into natural sounding speech.
+                Convert text into speech that you can listen to.
             </p>
-
         </div>
 
         <!-- MAIN GRID -->
@@ -171,30 +162,30 @@ content="width=device-width, initial-scale=1.0">
         <!-- OUTPUT -->
         <section class="outputSection">
 
-            <h2>🔊 Output</h2>
+          
 
             <div class="outputBox">
 
                 <div class="audioIcon">
-                    🔊
+                Output
                 </div>
 
                 <h3>
-                    Your audio will appear here
+                    Your output control is here
                 </h3>
-
+<!----
                 <p>
                     Convert your text to hear it here.
                 </p>
 
                 <audio id="audioPlayer"
-                controls></audio>
+                controls></audio> ---->
                 <div class="audioControls">
                     <button id="playBtn">
                         ▶ Play
                     </button>
                     <button id="stopBtn">
-                        ⛔ Stop
+                        ⛔ Pause
                     </button>
                 </div>
             </div>

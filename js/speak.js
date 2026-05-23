@@ -371,7 +371,12 @@ stopBtn.addEventListener(
 );
 
 */
+// MOBILE AUDIO FIX
+window.onload = ()=>{
 
+    speechSynthesis.cancel();
+
+};
 
 // =====================================
 // ELEMENTS
@@ -678,7 +683,7 @@ pitchSlider.addEventListener(
     }
 );
 
-
+/*
 // =====================================
 // SPEAK FUNCTION
 // =====================================
@@ -736,11 +741,96 @@ function speakText(text){
 
 }
 
+*/
 
+function speakText(text){
+
+    // STOP EVERYTHING
+    synth.cancel();
+
+    // FORCE RESUME
+    synth.resume();
+
+    // SMALL DELAY FOR MOBILE
+    setTimeout(()=>{
+
+        // CREATE SPEECH
+        currentUtterance =
+        new SpeechSynthesisUtterance(
+            text
+        );
+
+        // LANGUAGE
+        currentUtterance.lang =
+        languageSelect.value;
+
+        // SELECTED VOICE
+        const selectedVoice =
+        voices.find(
+            voice =>
+            voice.name ===
+            voiceSelect.value
+        );
+
+        // APPLY VOICE
+        if(selectedVoice){
+
+            currentUtterance.voice =
+            selectedVoice;
+
+        }
+
+        // SPEED
+        currentUtterance.rate =
+        parseFloat(
+            speedSlider.value
+        );
+
+        // PITCH
+        currentUtterance.pitch =
+        parseFloat(
+            pitchSlider.value
+        );
+
+        // VOLUME
+        currentUtterance.volume = 1;
+
+        // MOBILE EVENTS
+        currentUtterance.onstart =
+        ()=>{
+
+            console.log(
+                "Speech started"
+            );
+
+        };
+
+        currentUtterance.onerror =
+        (e)=>{
+
+            console.log(
+                "Speech Error:",
+                e
+            );
+
+           /* alert(
+                "Speech failed on this device/browser."
+            );*/
+
+        };
+
+        // SPEAK
+        synth.speak(
+            currentUtterance
+        );
+
+    },200);
+
+}
 // =====================================
 // CONVERT BUTTON
 // =====================================
-
+/*
 speakBtn.addEventListener(
     "click",
     ()=>{
@@ -769,8 +859,78 @@ speakBtn.addEventListener(
 
     }
 );
+*/
+speakBtn.addEventListener(
+    "click",
+    ()=>{
 
+        const text =
+        textArea.value.trim();
 
+        if(text === ""){
+
+            alert(
+                "Please enter text"
+            );
+
+            return;
+
+        }
+
+        lastText = text;
+
+        synth.resume();
+
+        // SPEAK
+        speakText(text);
+
+        // SAVE HISTORY
+        fetch("save_history.php",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                "application/x-www-form-urlencoded"
+            },
+
+            body:
+
+                "text=" +
+                encodeURIComponent(text)
+
+                +
+
+                "&language=" +
+                encodeURIComponent(
+                    languageSelect.value
+                )
+
+                +
+
+                "&voice=" +
+                encodeURIComponent(
+                    voiceSelect.value
+                )
+
+                +
+
+                "&speed=" +
+                encodeURIComponent(
+                    speedSlider.value
+                )
+
+                +
+
+                "&pitch=" +
+                encodeURIComponent(
+                    pitchSlider.value
+                )
+
+        });
+
+    }
+);
 // =====================================
 // PLAY BUTTON
 // =====================================
@@ -815,24 +975,129 @@ console.log(
 
 
 // =====================================
-// MOBILE SIDEBAR
+// MOBILE SIDEBAR TOGGLE
 // =====================================
 
-const menuBtn =
-document.getElementById("menuBtn");
-
-const sidebar =
-document.getElementById("sidebar");
-
-
-// TOGGLE SIDEBAR
-menuBtn.addEventListener(
-    "click",
+document.addEventListener(
+    "DOMContentLoaded",
     ()=>{
 
-        sidebar.classList.toggle(
-            "active"
+        const menuBtn =
+        document.getElementById(
+            "menuBtn"
         );
+
+        const sidebar =
+        document.getElementById(
+            "sidebar"
+        );
+
+        // CHECK ELEMENTS EXIST
+        if(menuBtn && sidebar){
+
+            menuBtn.addEventListener(
+                "click",
+                ()=>{
+
+                    sidebar.classList.toggle(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+
+    }
+);
+
+// =====================================
+// LOAD HISTORY DATA
+// =====================================
+
+window.addEventListener(
+    "load",
+    ()=>{
+
+        const savedText =
+        localStorage.getItem(
+            "tts_text"
+        );
+
+        if(savedText){
+
+            // LOAD TEXT
+            textArea.value =
+            savedText;
+
+            // LOAD LANGUAGE
+            const savedLanguage =
+            localStorage.getItem(
+                "tts_language"
+            );
+
+            if(savedLanguage){
+
+                languageSelect.value =
+                savedLanguage;
+
+                updateVoices();
+
+            }
+
+            // LOAD VOICE
+            const savedVoice =
+            localStorage.getItem(
+                "tts_voice"
+            );
+
+            if(savedVoice){
+
+                setTimeout(()=>{
+
+                    voiceSelect.value =
+                    savedVoice;
+
+                },200);
+
+            }
+
+            // LOAD SPEED
+            const savedSpeed =
+            localStorage.getItem(
+                "tts_speed"
+            );
+
+            if(savedSpeed){
+
+                speedSlider.value =
+                savedSpeed;
+
+                speedValue.innerText =
+                savedSpeed;
+
+            }
+
+            // LOAD PITCH
+            const savedPitch =
+            localStorage.getItem(
+                "tts_pitch"
+            );
+
+            if(savedPitch){
+
+                pitchSlider.value =
+                savedPitch;
+
+                pitchValue.innerText =
+                savedPitch;
+
+            }
+
+            // UPDATE COUNT
+            updateCharacterCount();
+
+        }
 
     }
 );

@@ -19,8 +19,9 @@ if($result->num_rows == 1){
 
         header("Location: ../dashboard.php");
         exit();
-    }
+    } 
+    echo "invalid credentials";
 }
 
-echo "Invalid login credentials";
+
 ?>

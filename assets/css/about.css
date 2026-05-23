@@ -1,0 +1,207 @@
+/* =====================================
+MAIN CONTENT
+===================================== */
+
+.mainContent{
+
+    margin-left:260px;
+
+    width:calc(100% - 260px);
+
+    padding:30px;
+
+    min-height:100vh;
+
+}
+
+
+
+/* =====================================
+ABOUT PAGE
+===================================== */
+
+.aboutContainer{
+
+    display:grid;
+
+    grid-template-columns:
+    2fr 1fr;
+
+    gap:40px;
+
+    align-items:center;
+
+    margin-top:30px;
+
+}
+
+
+.aboutText{
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.05);
+
+}
+
+
+.aboutText h2{
+
+    margin-bottom:20px;
+
+    color:#111827;
+
+    font-size:30px;
+
+}
+
+
+.aboutText p{
+
+    line-height:1.9;
+
+    color:#555;
+
+    margin-bottom:18px;
+
+    font-size:16px;
+
+}
+
+
+/* IMAGE */
+
+.aboutImage{
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+
+.aboutImage img{
+
+    width:100%;
+
+    max-width:340px;
+
+    border-radius:25px;
+
+    object-fit:cover;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.1);
+
+}
+
+
+/* PROJECT CARD */
+
+.projectCard{
+
+    background:white;
+
+    margin-top:40px;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.05);
+
+}
+
+
+.projectCard h3{
+
+    margin-bottom:25px;
+
+    color:#111827;
+
+    font-size:28px;
+
+}
+
+
+.projectInfo{
+
+    display:grid;
+
+    gap:18px;
+
+}
+
+
+.projectInfo p{
+
+    color:#444;
+
+    line-height:1.7;
+
+    font-size:16px;
+
+}
+.author-box{
+    margin-top:35px;
+    background:white;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    border-left:6px solid #1faa59;
+}
+
+.author-box h2{
+    margin-bottom:25px;
+    color:#000;
+    font-weight: bold;
+}
+
+.info-item{
+    margin-bottom:18px;
+}
+
+.label{
+    font-weight:bold;
+    font-size: 17px;
+    font-family: Times New Roman;
+    color:#1faa59;
+    display:block;
+    margin-bottom:5px;
+
+}
+
+.value{
+    color:#000;
+    font-size:18px;
+    font-family: Times New Roman;
+    font-weight: bold;
+}
+
+
+/* =====================================
+MOBILE RESPONSIVE
+===================================== */
+
+@media(max-width:992px){
+
+    .aboutContainer{
+
+        grid-template-columns:1fr;
+
+    }
+    .author-box{
+        margin-top:25px;
+    }
+
+    .about-image img{
+        max-width:100%;
+    }
+
+}

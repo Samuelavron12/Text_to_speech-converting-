@@ -88,7 +88,7 @@ body{
 
 /* TITLE */
 .auth-containers h2{
-    margin-bottom:25px;
+    margin-bottom:40px;
 }
 
 
@@ -112,6 +112,7 @@ body{
 
 .auth-containers p{
     margin-top:15px;
+    padding: 30px;
 }
 
 /* tts working styling very important */
@@ -244,17 +245,30 @@ select, button{
 
     .auth-containers button:hover{
     background:#0056b3;
+    
     }
 
     /* TITLE */
     .auth-containers h2{
         margin-bottom:25px;
-        font-size: 35px;
+        font-size: 40px;
         font-weight: 600;
     }
    
     .auth-container p{
         margin-top:15px;
-        font-size: 25px;
+        font-size: 30px;
     }
+}
+@media(max-width:375px){
+    .auth-containers{
+        width:350px;
+        height: 700px;
+        padding:35px;
+        background:#fff;
+        border-radius:12px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.15);
+        text-align:center;
+    }
+    
 }
