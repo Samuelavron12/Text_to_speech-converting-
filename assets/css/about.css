@@ -1,6 +1,16 @@
-/* =====================================
-MAIN CONTENT
-===================================== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f5f6ff;
+}
+
+
+/*  MAIN CONTENT */
 
 .mainContent{
 
@@ -15,10 +25,12 @@ MAIN CONTENT
 }
 
 
+.mobileTop{
+    display: none;
+}
 
-/* =====================================
-ABOUT PAGE
-===================================== */
+
+/* ABOUT PAGE */
 
 .aboutContainer{
 
@@ -185,9 +197,7 @@ ABOUT PAGE
 }
 
 
-/* =====================================
-MOBILE RESPONSIVE
-===================================== */
+/* MOBILE RESPONSIVE */
 
 @media(max-width:992px){
 
@@ -202,6 +212,24 @@ MOBILE RESPONSIVE
 
     .about-image img{
         max-width:100%;
+    }
+
+    .logoTitle{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        font-size:20px;
+        text-transform: uppercase;
+        color:#5b3df5;
+        /*margin-bottom:40px;*/
+        margin-top: 40px;
+    }
+    
+    
+    .logoTitle img{
+        width:40px;
+        height:40px;
+        object-fit:contain;
     }
 
 }

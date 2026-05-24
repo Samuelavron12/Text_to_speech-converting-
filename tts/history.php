@@ -53,7 +53,7 @@ content="width=device-width, initial-scale=1.0">
 <title>History</title>
 
 <link rel="stylesheet"
-href="../assets/css/spe.css">
+href="../assets/css/spe.css?v=<?php echo time(); ?>">
 
 </head>
 
@@ -62,8 +62,7 @@ href="../assets/css/spe.css">
 <div class="app">
 
     <!-- SIDEBAR -->
-    <?php include
-    "../includes/header.php"; ?>
+    <?php include "../includes/header.php"; ?>
 
     <!-- MAIN -->
     <main class="mainContent">
@@ -71,11 +70,17 @@ href="../assets/css/spe.css">
         <!-- MOBILE TOP -->
         <div class="mobileTop">
 
-            <div class="mobileLogo">
+           <!--- <div class="mobileLogo">
 
                 🔊 Nem Speak
 
-            </div>
+            </div>---->
+            <h2 class="logoTitle">
+                <img src="../assets/images/logo.png" alt="Logo">
+                <span>
+                    Nem Speaks
+                </span>
+            </h2>
 
             <button id="menuBtn">
                 ☰

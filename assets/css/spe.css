@@ -21,6 +21,25 @@
         width:100%;
         padding:40px;
     }
+    .mobileTop{
+        display: none;
+    }
+    .logoTitle{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        font-size:20px;
+        text-transform: uppercase;
+        color:#5b3df5;
+        margin-bottom:40px;
+    }
+    
+    
+    .logoTitle img{
+        width:40px;
+        height:40px;
+        object-fit:contain;
+    }
     
     /* HEADER */
     .topHeader h1{
@@ -381,6 +400,122 @@ DELETE BUTTON
 }
 
 
+/* =====================================
+ICON STYLING
+===================================== */
+
+.tabs button,
+#speakBtn,
+.audioControls button,
+.controlCard h3,
+.feature h3,
+.audioIcon{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+/* BUTTON ICONS */
+
+.tabs button img,
+#speakBtn img,
+.audioControls button img,
+.controlCard h3 img,
+.feature h3 img,
+.audioIcon img{
+
+    width:20px;
+
+    height:20px;
+
+    object-fit:contain;
+
+}
+
+
+/* TAB BUTTONS */
+
+.tabs button{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+}
+
+
+/* CONVERT BUTTON */
+
+#speakBtn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+}
+
+
+/* AUDIO CONTROLS */
+
+.audioControls button{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+}
+
+
+/* CONTROL HEADERS */
+
+.controlCard h3{
+
+    font-size:16px;
+
+    font-weight:600;
+
+}
+
+
+/* FEATURES */
+
+.feature h3{
+
+    margin-bottom:15px;
+
+}
+
+
+/* OUTPUT */
+
+.audioIcon{
+
+    font-size:18px;
+
+    font-weight:600;
+
+    margin-bottom:15px;
+
+}
+
+
     
     /* RESPONSIVE */
     @media(max-width:992px){
@@ -423,6 +558,7 @@ MOBILE HISTORY
         font-size:15px;
     }
 
+
 }
 /* =====================================
 HISTORY PAGE RESPONSIVE
@@ -439,6 +575,23 @@ HISTORY PAGE RESPONSIVE
 
         padding:90px 20px 20px;
 
+    }
+    .logoTitle{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        font-size:20px;
+        text-transform: uppercase;
+        color:#5b3df5;
+        /*margin-bottom:40px;*/
+        margin-top: 40px;
+    }
+    
+    
+    .logoTitle img{
+        width:40px;
+        height:40px;
+        object-fit:contain;
     }
 
     /* MOBILE TOP */
@@ -565,6 +718,196 @@ SMALLER MOBILE DEVICES
     .historyDate{
 
         font-size:13px;
+
+    }
+
+}
+/* =====================================
+MOBILE ICON FIX
+===================================== */
+
+@media(max-width:768px){
+
+    /* TAB BUTTONS */
+    .tabs{
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:12px;
+
+    }
+
+    .tabs button{
+
+        width:100%;
+
+        justify-content:flex-start;
+
+        padding:14px 16px;
+
+        font-size:14px;
+
+    }
+
+    .tabs button img{
+
+        width:16px;
+
+        height:16px;
+
+    }
+
+
+    /* CONTROL HEADERS */
+    .controlCard h3{
+
+        font-size:14px;
+
+        gap:8px;
+
+    }
+
+    .controlCard h3 img{
+
+        width:16px;
+
+        height:16px;
+
+    }
+
+
+    /* CONVERT BUTTON */
+    #speakBtn{
+
+        font-size:15px;
+
+        padding:15px;
+
+    }
+
+    #speakBtn img{
+
+        width:18px;
+
+        height:18px;
+
+    }
+
+
+    /* AUDIO CONTROLS */
+    .audioControls{
+
+        flex-direction:column;
+
+        gap:12px;
+
+    }
+
+    .audioControls button{
+
+        width:100%;
+
+        justify-content:center;
+
+        padding:14px;
+
+        font-size:14px;
+
+    }
+
+    .audioControls button img{
+
+        width:16px;
+
+        height:16px;
+
+    }
+
+
+    /* FEATURES */
+    .feature h3{
+
+        font-size:15px;
+
+        gap:8px;
+
+    }
+
+    .feature h3 img{
+
+        width:16px;
+
+        height:16px;
+
+    }
+
+
+    /* OUTPUT ICON */
+    .audioIcon{
+
+        font-size:15px;
+
+    }
+
+    .audioIcon img{
+
+        width:18px;
+
+        height:18px;
+
+    }
+
+
+    /* GENERAL ICON FIX */
+    .tabs button img,
+    #speakBtn img,
+    .audioControls button img,
+    .controlCard h3 img,
+    .feature h3 img,
+    .audioIcon img{
+
+        flex-shrink:0;
+
+    }
+
+}
+
+
+/* =====================================
+SMALL PHONE FIX
+===================================== */
+
+@media(max-width:480px){
+
+    .tabs button{
+
+        font-size:13px;
+
+    }
+
+    .controlCard h3{
+
+        font-size:13px;
+
+    }
+
+    #speakBtn{
+
+        font-size:14px;
+
+    }
+
+    .audioControls button{
+
+        font-size:13px;
+
+    }
+
+    .feature h3{
+
+        font-size:14px;
 
     }
 

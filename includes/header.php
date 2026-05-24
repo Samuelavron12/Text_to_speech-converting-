@@ -18,9 +18,8 @@
         </h2>
         <ul>
             <li><a href="../dashboard.php" > <img src="../assets/images/home.png" alt="">home</a> </li>
-            <li><a href="../tts/speak.php" > <img src="../assets/images/text.png" alt="">text to speech</a> </li>
+            <li><a href="../tts/speak.php" > <img src="../assets/images/textto.png" alt="">text to speech</a> </li>
             <li>  <a href="../tts/history.php" > <img src="../assets/images/history.png" alt="">history</a> </li>
-            <!---<li>  <a href="../tts/history.php" > <img src="../assets/images/setting.png" alt="">setting</a> </li>--->
             <li>  <a href="../tts/about.php" > <img src="../assets/images/about.png" alt="">about</a> </li>
             <li>  <a href="../index.php" > <img src="../assets/images/logout.png" alt="">logout</a> </li>
         </ul>

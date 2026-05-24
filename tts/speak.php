@@ -14,7 +14,9 @@ content="width=device-width, initial-scale=1.0">
 
 <title>Nem Speak</title>
 
-<link rel="stylesheet" href="../assets/css/spe.css">
+<link rel="stylesheet"
+href="../assets/css/spe.css?v=<?php echo time(); ?>">
+<!---<link rel="stylesheet" href="../assets/css/spe.css">--->
 
 </head>
 
@@ -23,25 +25,45 @@ content="width=device-width, initial-scale=1.0">
 <div class="app">
 
     <!-- SIDEBAR  ---->
-    <?php include "../includes/header.php"; ?>  
+    <?php include "../includes/header.php"; ?> 
 
     <!-- MAIN CONTENT -->
     <div class="mobileTop">
-        <div class="mobileLogo">
+
+       <!-- <div class="mobileLogo">
+
             🔊 Nem Speak
-        </div>
+
+        </div>---->
+        <h2 class="logoTitle">
+            <img src="../assets/images/logo.png" alt="Logo">
+            <span>
+                Nem Speaks
+            </span>
+        </h2>
+
         <button id="menuBtn">
+
             ☰
+
         </button>
+
     </div>
+
     <main class="mainContent">
 
         <!-- HEADER -->
         <div class="topHeader">
-            <h1>Text to Speech</h1>
+
+            <h1>
+                Text to Speech
+            </h1>
+
             <p>
-                Convert text into speech that you can listen to.
+                Convert text into speech
+                that you can listen to.
             </p>
+
         </div>
 
         <!-- MAIN GRID -->
@@ -56,20 +78,36 @@ content="width=device-width, initial-scale=1.0">
                     <button id="textTab"
                     class="activeTab">
 
-                        ✏️ Type or Paste Text
+                        <img
+                        src="../assets/images/write.png"
+                        alt="">
+
+                        <span>
+                            Type or Paste Text
+                        </span>
 
                     </button>
 
                     <button id="uploadTab">
 
-                        📁 Upload File
+                        <img
+                        src="../assets/images/upload.png"
+                        alt="">
+
+                        <span>
+                            Upload File
+                        </span>
 
                     </button>
 
                 </div>
 
                 <!-- FILE INPUT -->
-                <input type="file" type="file" id="fileInput" accept=".txt,.docx,.pdf,.html,.csv,.json,.xml" hidden >
+                <input
+                type="file"
+                id="fileInput"
+                accept=".txt,.docx,.pdf,.html,.csv,.json,.xml"
+                hidden >
 
                 <!-- TEXTAREA -->
                 <textarea
@@ -80,7 +118,9 @@ content="width=device-width, initial-scale=1.0">
                 <div class="bottomEditor">
 
                     <span id="charCount">
-                        0 / 50000 characters
+
+                        0 / 100000 characters
+
                     </span>
 
                 </div>
@@ -88,7 +128,13 @@ content="width=device-width, initial-scale=1.0">
                 <!-- BUTTON ---->
                 <button id="speakBtn">
 
-                    🔊 Convert to Speech
+                    <img
+                    src="../assets/images/convert.png"
+                    alt="">
+
+                    <span>
+                        Convert to Speech
+                    </span>
 
                 </button>   
 
@@ -100,7 +146,17 @@ content="width=device-width, initial-scale=1.0">
                 <!-- LANGUAGE -->
                 <div class="controlCard">
 
-                    <h3>🌍 Language</h3>
+                    <h3>
+
+                        <img
+                        src="../assets/images/language.png"
+                        alt="">
+
+                        <span>
+                            Language
+                        </span>
+
+                    </h3>
 
                     <select id="language"></select>
 
@@ -109,7 +165,17 @@ content="width=device-width, initial-scale=1.0">
                 <!-- VOICE -->
                 <div class="controlCard">
 
-                    <h3>🎤 Voice</h3>
+                    <h3>
+
+                        <img
+                        src="../assets/images/voice.png"
+                        alt="">
+
+                        <span>
+                            Voice
+                        </span>
+
+                    </h3>
 
                     <select id="voice"></select>
 
@@ -120,9 +186,23 @@ content="width=device-width, initial-scale=1.0">
 
                     <div class="labelRow">
 
-                        <h3>⚡ Speech Speed</h3>
+                        <h3>
 
-                        <span id="speedValue">1</span>
+                            <img
+                            src="../assets/images/speed.png"
+                            alt="">
+
+                            <span>
+                                Speech Speed
+                            </span>
+
+                        </h3>
+
+                        <span id="speedValue">
+
+                            1
+
+                        </span>
 
                     </div>
 
@@ -140,9 +220,23 @@ content="width=device-width, initial-scale=1.0">
 
                     <div class="labelRow">
 
-                        <h3>🎵 Pitch</h3>
+                        <h3>
 
-                        <span id="pitchValue">1</span>
+                            <img
+                            src="../assets/images/voice.png"
+                            alt="">
+
+                            <span>
+                                Pitch
+                            </span>
+
+                        </h3>
+
+                        <span id="pitchValue">
+
+                            1
+
+                        </span>
 
                     </div>
 
@@ -162,32 +256,52 @@ content="width=device-width, initial-scale=1.0">
         <!-- OUTPUT -->
         <section class="outputSection">
 
-          
-
             <div class="outputBox">
 
                 <div class="audioIcon">
-                Output
+
+                    <img
+                    src="../assets/images/output.png"
+                    alt="">
+
+                    <span>
+                        Output
+                    </span>
+
                 </div>
 
                 <h3>
                     Your output control is here
                 </h3>
-<!----
-                <p>
-                    Convert your text to hear it here.
-                </p>
 
-                <audio id="audioPlayer"
-                controls></audio> ---->
                 <div class="audioControls">
+
                     <button id="playBtn">
-                        ▶ Play
+
+                        <img
+                        src="../assets/images/play1.png"
+                        alt="">
+
+                        <span>
+                            Play
+                        </span>
+
                     </button>
+
                     <button id="stopBtn">
-                        ⛔ Pause
+
+                        <img
+                        src="../assets/images/pause.png"
+                        alt="">
+
+                        <span>
+                            Pause
+                        </span>
+
                     </button>
+
                 </div>
+
             </div>
 
         </section>
@@ -197,7 +311,17 @@ content="width=device-width, initial-scale=1.0">
 
             <div class="feature">
 
-                <h3>⚡ Fast & Easy</h3>
+                <h3>
+
+                    <img
+                    src="../assets/images/fast.png"
+                    alt="">
+
+                    <span>
+                        Fast & Easy
+                    </span>
+
+                </h3>
 
                 <p>
                     Convert text to speech instantly.
@@ -207,7 +331,17 @@ content="width=device-width, initial-scale=1.0">
 
             <div class="feature">
 
-                <h3>🎤 Natural Voices</h3>
+                <h3>
+
+                    <img
+                    src="../assets/images/voice.png"
+                    alt="">
+
+                    <span>
+                        Natural Voices
+                    </span>
+
+                </h3>
 
                 <p>
                     High quality multilingual voices.
@@ -217,7 +351,17 @@ content="width=device-width, initial-scale=1.0">
 
             <div class="feature">
 
-                <h3>🔒 Secure & Private</h3>
+                <h3>
+
+                    <img
+                    src="../assets/images/secure.png"
+                    alt="">
+
+                    <span>
+                        Secure & Private
+                    </span>
+
+                </h3>
 
                 <p>
                     Your data remains private.

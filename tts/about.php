@@ -20,7 +20,7 @@ About System
 </title>
 
 <link rel="stylesheet"
-href="../assets/css/about.css">
+href="../assets/css/about.css?v=<?php echo time(); ?>">
 
 </head>
 
@@ -29,10 +29,7 @@ href="../assets/css/about.css">
 <div class="app">
 
     <!-- SIDEBAR -->
-    <?php include
-    "../includes/header.php"; ?>
-
-
+    <?php include "../includes/header.php"; ?>
     <!-- MAIN CONTENT -->
     <main class="mainContent">
 
@@ -40,11 +37,17 @@ href="../assets/css/about.css">
         <!-- MOBILE TOP -->
         <div class="mobileTop">
 
-            <div class="mobileLogo">
+            <!---<div class="mobileLogo">
 
                 🔊 Nem Speak
 
-            </div>
+            </div>---> 
+            <h2 class="logoTitle">
+                <img src="../assets/images/logo.png" alt="Logo">
+                <span>
+                    Nem Speaks
+                </span>
+            </h2>
 
             <button id="menuBtn">
 
