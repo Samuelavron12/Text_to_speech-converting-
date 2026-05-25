@@ -512,6 +512,107 @@ ICON STYLING
     font-weight:600;
 
     margin-bottom:15px;
+}
+
+/* =====================================
+ENGINE SELECT
+===================================== */
+
+#engine,
+#language,
+#voice{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#f5f6ff;
+
+    font-size:15px;
+
+    outline:none;
+
+    margin-top:12px;
+
+}
+
+
+/* =====================================
+GROUP LABELS
+===================================== */
+
+optgroup{
+
+    font-weight:bold;
+
+    color:#5b3df5;
+
+}
+
+
+/* =====================================
+CONTROL CARDS
+===================================== */
+
+.controlCard{
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,0.05);
+
+}
+
+
+/* =====================================
+RANGE
+===================================== */
+
+input[type="range"]{
+
+    width:100%;
+
+    margin-top:15px;
+
+}
+
+
+/* =====================================
+OUTPUT PLAYER
+===================================== */
+
+#audioPlayer{
+
+    width:100%;
+
+    margin-top:20px;
+
+}
+
+
+/* =====================================
+MOBILE FIX
+===================================== */
+
+@media(max-width:768px){
+
+    #engine,
+    #language,
+    #voice{
+
+        font-size:14px;
+
+        padding:13px;
+
+    }
 
 }
 

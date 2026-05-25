@@ -12,11 +12,10 @@ require_once __DIR__ . "/../config/auth_check.php";
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Nemi Speaks</title>
+<title>Nem Speak</title>
 
 <link rel="stylesheet"
-href="../assets/css/spe.css?v=<?php echo time(); ?>">
-<!---<link rel="stylesheet" href="../assets/css/spe.css">--->
+href="../assets/css/spe.css">
 
 </head>
 
@@ -24,18 +23,17 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
 
 <div class="app">
 
-    <!-- SIDEBAR  ---->
-    <?php include "../includes/header.php"; ?> 
+    <!-- SIDEBAR -->
+    <?php include "../includes/header.php"; ?>
 
-    <!-- MAIN CONTENT -->
+    <!-- MOBILE TOP -->
     <div class="mobileTop">
 
-        <h2 class="logoTitle">
-            <img src="../assets/images/logo.png" alt="Logo">
-            <span>
-                Nemi Speaks
-            </span>
-        </h2>
+        <div class="mobileLogo">
+
+            🔊 Nem Speak
+
+        </div>
 
         <button id="menuBtn">
 
@@ -45,18 +43,18 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
 
     </div>
 
+    <!-- MAIN -->
     <main class="mainContent">
 
         <!-- HEADER -->
         <div class="topHeader">
 
             <h1>
-                Text to Speech
+                Text To Speech
             </h1>
 
             <p>
-                Convert text into speech
-                that you can listen to.
+                Convert text into natural speech.
             </p>
 
         </div>
@@ -64,34 +62,32 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
         <!-- MAIN GRID -->
         <div class="ttsContainer">
 
-            <!-- LEFT SIDE -->
+            <!-- LEFT -->
             <section class="leftPanel">
 
                 <!-- TABS -->
                 <div class="tabs">
 
-                    <button id="textTab"
+                    <button
+                    id="textTab"
                     class="activeTab">
 
                         <img
-                        src="../assets/images/write.png"
+                        src="../assets/images/text.png"
                         alt="">
 
-                        <span>
-                            Type or Paste Text
-                        </span>
+                        Type Text
 
                     </button>
 
-                    <button id="uploadTab">
+                    <button
+                    id="uploadTab">
 
                         <img
                         src="../assets/images/upload.png"
                         alt="">
 
-                        <span>
-                            Upload File
-                        </span>
+                        Upload File
 
                     </button>
 
@@ -101,15 +97,15 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
                 <input
                 type="file"
                 id="fileInput"
-                accept=".txt,.docx,.pdf,.html,.csv,.json,.xml"
-                hidden >
+                accept=".txt,.doc,.docx,.pdf,.ppt,.pptx,.html,.csv,.json,.xml"
+                hidden>
 
-                <!-- TEXTAREA -->
+                <!-- TEXT -->
                 <textarea
                 id="text"
-                placeholder="Type or paste your text here..."></textarea>
+                placeholder="Type or paste text here..."></textarea>
 
-                <!-- CHARACTER COUNT -->
+                <!-- COUNT -->
                 <div class="bottomEditor">
 
                     <span id="charCount">
@@ -120,22 +116,20 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
 
                 </div>
 
-                <!-- BUTTON ---->
+                <!-- BUTTON -->
                 <button id="speakBtn">
 
                     <img
-                    src="../assets/images/convert.png"
+                    src="../assets/images/play.png"
                     alt="">
 
-                    <span>
-                        Convert to Speech
-                    </span>
+                    Convert To Speech
 
-                </button>   
+                </button>
 
             </section>
 
-            <!-- RIGHT SIDE -->
+            <!-- RIGHT -->
             <section class="rightPanel">
 
                 <!-- LANGUAGE -->
@@ -147,13 +141,65 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
                         src="../assets/images/language.png"
                         alt="">
 
-                        <span>
-                            Language
-                        </span>
+                        Language
 
                     </h3>
 
-                    <select id="language"></select>
+                    <select id="language">
+
+                        <option value="en-US">
+                            English US
+                        </option>
+
+                        <option value="en-GB">
+                            English UK
+                        </option>
+
+                        <option value="en-NG">
+                            English Nigeria
+                        </option>
+
+                        <option value="fr-FR">
+                            French
+                        </option>
+
+                        <option value="es-ES">
+                            Spanish
+                        </option>
+
+                        <option value="de-DE">
+                            German
+                        </option>
+
+                        <option value="it-IT">
+                            Italian
+                        </option>
+
+                        <option value="pt-PT">
+                            Portuguese
+                        </option>
+
+                        <option value="ru-RU">
+                            Russian
+                        </option>
+
+                        <option value="zh-CN">
+                            Chinese
+                        </option>
+
+                        <option value="ja-JP">
+                            Japanese
+                        </option>
+
+                        <option value="ko-KR">
+                            Korean
+                        </option>
+
+                        <option value="ar-SA">
+                            Arabic
+                        </option>
+
+                    </select>
 
                 </div>
 
@@ -166,13 +212,21 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
                         src="../assets/images/voice.png"
                         alt="">
 
-                        <span>
-                            Voice
-                        </span>
+                        Voice
 
                     </h3>
 
-                    <select id="voice"></select>
+                    <select id="voice">
+
+                        <option value="female">
+                            Female
+                        </option>
+
+                        <option value="male">
+                            Male
+                        </option>
+
+                    </select>
 
                 </div>
 
@@ -187,9 +241,7 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
                             src="../assets/images/speed.png"
                             alt="">
 
-                            <span>
-                                Speech Speed
-                            </span>
+                            Speech Speed
 
                         </h3>
 
@@ -201,7 +253,8 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
 
                     </div>
 
-                    <input type="range"
+                    <input
+                    type="range"
                     id="speed"
                     min="0.5"
                     max="2"
@@ -218,12 +271,10 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
                         <h3>
 
                             <img
-                            src="../assets/images/voice.png"
+                            src="../assets/images/pitch.png"
                             alt="">
 
-                            <span>
-                                Pitch
-                            </span>
+                            Pitch
 
                         </h3>
 
@@ -235,7 +286,8 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
 
                     </div>
 
-                    <input type="range"
+                    <input
+                    type="range"
                     id="pitch"
                     min="0"
                     max="2"
@@ -256,17 +308,17 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
                 <div class="audioIcon">
 
                     <img
-                    src="../assets/images/output.png"
+                    src="../assets/images/audio.png"
                     alt="">
 
-                    <span>
-                        Output
-                    </span>
+                    Output
 
                 </div>
 
                 <h3>
+
                     Your output control is here
+
                 </h3>
 
                 <div class="audioControls">
@@ -274,93 +326,24 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
                     <button id="playBtn">
 
                         <img
-                        src="../assets/images/play1.png"
+                        src="../assets/images/play.png"
                         alt="">
 
-                        <span>
-                            Play
-                        </span>
+                        Play
 
                     </button>
 
                     <button id="stopBtn">
 
                         <img
-                        src="../assets/images/pause.png"
+                        src="../assets/images/stop.png"
                         alt="">
 
-                        <span>
-                            Pause
-                        </span>
+                        Stop
 
                     </button>
 
                 </div>
-
-            </div>
-
-        </section>
-
-        <!-- FEATURES -->
-        <section class="features">
-
-            <div class="feature">
-
-                <h3>
-
-                    <img
-                    src="../assets/images/fast.png"
-                    alt="">
-
-                    <span>
-                        Fast & Easy
-                    </span>
-
-                </h3>
-
-                <p>
-                    Convert text to speech instantly.
-                </p>
-
-            </div>
-
-            <div class="feature">
-
-                <h3>
-
-                    <img
-                    src="../assets/images/voice.png"
-                    alt="">
-
-                    <span>
-                        Natural Voices
-                    </span>
-
-                </h3>
-
-                <p>
-                    High quality multilingual voices.
-                </p>
-
-            </div>
-
-            <div class="feature">
-
-                <h3>
-
-                    <img
-                    src="../assets/images/secure.png"
-                    alt="">
-
-                    <span>
-                        Secure & Private
-                    </span>
-
-                </h3>
-
-                <p>
-                    Your data remains private.
-                </p>
 
             </div>
 

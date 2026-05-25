@@ -1,167 +1,82 @@
-
-// MOBILE AUDIO FIX
-window.onload = ()=>{
-
-    speechSynthesis.cancel();
-
-};
-
 // =====================================
 // ELEMENTS
 // =====================================
 
-const uploadTab =
-document.getElementById("uploadTab");
-
-const fileInput =
-document.getElementById("fileInput");
-
 const textArea =
-document.getElementById("text");
-
-const charCount =
-document.getElementById("charCount");
+document.getElementById(
+    "text"
+);
 
 const languageSelect =
-document.getElementById("language");
+document.getElementById(
+    "language"
+);
 
 const voiceSelect =
-document.getElementById("voice");
+document.getElementById(
+    "voice"
+);
 
 const speedSlider =
-document.getElementById("speed");
+document.getElementById(
+    "speed"
+);
 
 const pitchSlider =
-document.getElementById("pitch");
+document.getElementById(
+    "pitch"
+);
 
 const speedValue =
-document.getElementById("speedValue");
+document.getElementById(
+    "speedValue"
+);
 
 const pitchValue =
-document.getElementById("pitchValue");
+document.getElementById(
+    "pitchValue"
+);
+
+const charCount =
+document.getElementById(
+    "charCount"
+);
+
+const uploadTab =
+document.getElementById(
+    "uploadTab"
+);
+
+const fileInput =
+document.getElementById(
+    "fileInput"
+);
 
 const speakBtn =
-document.getElementById("speakBtn");
+document.getElementById(
+    "speakBtn"
+);
 
 const playBtn =
-document.getElementById("playBtn");
+document.getElementById(
+    "playBtn"
+);
 
 const stopBtn =
-document.getElementById("stopBtn");
+document.getElementById(
+    "stopBtn"
+);
 
 
 // =====================================
-// SPEECH ENGINE
+// VARIABLES
 // =====================================
-
-const synth =
-window.speechSynthesis;
 
 let voices = [];
 
-let currentUtterance = null;
+let utterance = null;
 
-let lastText = "";
-
-
-// =====================================
-// UNLOCK AUDIO
-// =====================================
-
-document.addEventListener(
-    "click",
-    ()=>{
-
-        // unlock browser audio
-        synth.resume();
-
-    },
-    { once:true }
-);
-
-
-// =====================================
-// CHARACTER COUNT
-// =====================================
-
-function updateCharacterCount(){
-
-    charCount.innerText =
-        textArea.value.length +
-        " / 100000 characters";
-
-}
-
-textArea.addEventListener(
-    "input",
-    updateCharacterCount
-);
-
-updateCharacterCount();
-
-
-// =====================================
-// FILE UPLOAD
-// =====================================
-
-// OPEN FILE MANAGER
-uploadTab.addEventListener(
-    "click",
-    ()=>{
-
-        fileInput.click();
-
-    }
-);
-
-
-// READ FILE
-fileInput.addEventListener(
-    "change",
-    ()=>{
-
-        const file =
-        fileInput.files[0];
-
-        if(!file) return;
-
-        const formData =
-        new FormData();
-
-        formData.append(
-            "file",
-            file
-        );
-
-        fetch("upload_extract.php",{
-
-            method:"POST",
-
-            body:formData
-
-        })
-        .then(response =>
-            response.text()
-        )
-        .then(data => {
-
-            textArea.value = data;
-
-            updateCharacterCount();
-
-        })
-        .catch(error => {
-
-            console.log(error);
-
-            alert(
-                "Error reading file"
-            );
-
-        });
-
-    }
-);
+let pausedSpeech = false;
 
 
 // =====================================
@@ -170,120 +85,39 @@ fileInput.addEventListener(
 
 function loadVoices(){
 
-    voices = synth.getVoices();
-
-    // WAIT FOR VOICES
-    if(voices.length === 0){
-        return;
-    }
-
-    // CLEAR LANGUAGES
-    languageSelect.innerHTML = "";
-
-    // UNIQUE LANGUAGES
-    const uniqueLanguages = [
-        ...new Set(
-            voices.map(
-                voice => voice.lang
-            )
-        )
-    ];
-
-    // ADD LANGUAGES
-    uniqueLanguages.forEach(lang => {
-
-        const option =
-        document.createElement("option");
-
-        option.value = lang;
-
-        option.textContent = lang;
-
-        languageSelect.appendChild(option);
-
-    });
-
-    // LOAD VOICES
-    updateVoices();
+    voices =
+    speechSynthesis.getVoices();
 
 }
 
-
-// =====================================
-// UPDATE VOICES
-// =====================================
-
-function updateVoices(){
-
-    voiceSelect.innerHTML = "";
-
-    const selectedLang =
-    languageSelect.value;
-
-    const filteredVoices =
-    voices.filter(
-        voice =>
-        voice.lang === selectedLang
-    );
-
-    // IF NO VOICES
-    if(filteredVoices.length === 0){
-
-        const option =
-        document.createElement("option");
-
-        option.textContent =
-        "No voices available";
-
-        voiceSelect.appendChild(option);
-
-        return;
-
-    }
-
-    // ADD VOICES
-    filteredVoices.forEach(voice => {
-
-        const option =
-        document.createElement("option");
-
-        option.value =
-        voice.name;
-
-        option.textContent =
-        voice.name;
-
-        voiceSelect.appendChild(option);
-
-    });
-
-}
-
-
-// =====================================
-// CHANGE LANGUAGE
-// =====================================
-
-languageSelect.addEventListener(
-    "change",
-    updateVoices
-);
-
-
-// =====================================
-// LOAD VOICES EVENT
-// =====================================
+loadVoices();
 
 speechSynthesis.onvoiceschanged =
 loadVoices;
 
 
-// INITIAL LOAD
-loadVoices();
+// =====================================
+// CHARACTER COUNT
+// =====================================
+
+function updateCount(){
+
+    charCount.innerText =
+
+    textArea.value.length +
+
+    " / 100000 characters";
+
+}
+
+textArea.addEventListener(
+    "input",
+    updateCount
+);
 
 
 // =====================================
-// SPEED DISPLAY
+// SPEED VALUE
 // =====================================
 
 speedSlider.addEventListener(
@@ -298,7 +132,7 @@ speedSlider.addEventListener(
 
 
 // =====================================
-// PITCH DISPLAY
+// PITCH VALUE
 // =====================================
 
 pitchSlider.addEventListener(
@@ -311,267 +145,402 @@ pitchSlider.addEventListener(
     }
 );
 
-/*
+
 // =====================================
-// SPEAK FUNCTION
+// FILE PICKER
 // =====================================
 
-function speakText(text){
+uploadTab.addEventListener(
+    "click",
+    ()=>{
 
-    // STOP PREVIOUS
-    synth.cancel();
+        fileInput.click();
 
-    // CREATE SPEECH
-    currentUtterance =
-    new SpeechSynthesisUtterance(
-        text
-    );
+    }
+);
 
-    // LANGUAGE
-    currentUtterance.lang =
-    languageSelect.value;
 
-    // SELECTED VOICE
-    const selectedVoice =
-    voices.find(
-        voice =>
-        voice.name ===
-        voiceSelect.value
-    );
+// =====================================
+// FILE EXTRACTION
+// =====================================
 
-    // APPLY VOICE
-    if(selectedVoice){
+fileInput.addEventListener(
+    "change",
+    async ()=>{
 
-        currentUtterance.voice =
-        selectedVoice;
+        const file =
+        fileInput.files[0];
+
+        if(!file) return;
+
+        const formData =
+        new FormData();
+
+        formData.append(
+            "file",
+            file
+        );
+
+        try{
+
+            const response =
+            await fetch(
+
+                "../tts/upload_extract.php",
+
+                {
+
+                    method:"POST",
+
+                    body:formData
+
+                }
+
+            );
+
+            const extractedText =
+            await response.text();
+
+            textArea.value =
+            extractedText;
+
+            updateCount();
+
+        }
+
+        catch(error){
+
+            console.log(error);
+
+            alert(
+                "Could not read file"
+            );
+
+        }
+
+    }
+);
+
+
+// =====================================
+// TRANSLATE TEXT
+// =====================================
+
+async function translateText(
+
+    text,
+    targetLanguage
+
+){
+
+    try{
+
+        // LANGUAGE CODE
+        const langCode =
+
+        targetLanguage
+        .split("-")[0];
+
+        // ENGLISH
+        if(langCode === "en"){
+
+            return text;
+
+        }
+
+        // GOOGLE TRANSLATE
+        const response =
+        await fetch(
+
+            "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=" +
+
+            langCode +
+
+            "&dt=t&q=" +
+
+            encodeURIComponent(text)
+
+        );
+
+        const data =
+        await response.json();
+
+        // EXTRACT TEXT
+        const translatedText =
+
+        data[0]
+        .map(
+
+            item => item[0]
+
+        )
+        .join("");
+
+        return translatedText;
 
     }
 
+    catch(error){
+
+        console.log(error);
+
+        return text;
+
+    }
+
+}
+
+
+// =====================================
+// FIND BEST VOICE
+// =====================================
+
+function findVoice(
+
+    lang,
+    gender
+
+){
+
+    gender =
+    gender.toLowerCase();
+
+    // SAME LANGUAGE + GENDER
+    let selectedVoice =
+
+    voices.find(
+
+        voice =>
+
+        voice.lang === lang &&
+
+        voice.name
+        .toLowerCase()
+        .includes(gender)
+
+    );
+
+    // SAME LANGUAGE
+    if(!selectedVoice){
+
+        selectedVoice =
+
+        voices.find(
+
+            voice =>
+
+            voice.lang === lang
+
+        );
+
+    }
+
+    // PARTIAL MATCH
+    if(!selectedVoice){
+
+        selectedVoice =
+
+        voices.find(
+
+            voice =>
+
+            voice.lang
+            .includes(
+
+                lang.split("-")[0]
+
+            )
+
+        );
+
+    }
+
+    return selectedVoice;
+
+}
+
+
+// =====================================
+// SPEAK TEXT
+// =====================================
+
+async function speakText(){
+
+    let text =
+    textArea.value.trim();
+
+    if(text === ""){
+
+        alert(
+            "Please enter text"
+        );
+
+        return;
+
+    }
+
+    // BUTTON LOADING
+    speakBtn.innerHTML =
+    "Loading...";
+
+    speakBtn.disabled =
+    true;
+
+    // STOP PREVIOUS
+    speechSynthesis.cancel();
+
+    // LANGUAGE
+    const selectedLanguage =
+    languageSelect.value;
+
+    // GENDER
+    const selectedGender =
+    voiceSelect.value;
+
+    // =====================================
+    // TRANSLATE FIRST
+    // =====================================
+
+    const translatedText =
+
+    await translateText(
+
+        text,
+        selectedLanguage
+
+    );
+
+    // =====================================
+    // CREATE SPEECH
+    // =====================================
+
+    utterance =
+    new SpeechSynthesisUtterance(
+
+        translatedText
+
+    );
+
+    // LANGUAGE
+    utterance.lang =
+    selectedLanguage;
+
     // SPEED
-    currentUtterance.rate =
+    utterance.rate =
     parseFloat(
         speedSlider.value
     );
 
     // PITCH
-    currentUtterance.pitch =
+    utterance.pitch =
     parseFloat(
         pitchSlider.value
     );
 
-    // VOLUME
-    currentUtterance.volume = 1;
+    // =====================================
+    // VOICE
+    // =====================================
 
-    // SPEAK
-    synth.speak(
-        currentUtterance
+    const selectedVoice =
+
+    findVoice(
+
+        selectedLanguage,
+        selectedGender
+
     );
 
-}
+    if(selectedVoice){
 
-*/
-
-function speakText(text){
-
-    // STOP EVERYTHING
-    synth.cancel();
-
-    // FORCE RESUME
-    synth.resume();
-
-    // SMALL DELAY FOR MOBILE
-    setTimeout(()=>{
-
-        // CREATE SPEECH
-        currentUtterance =
-        new SpeechSynthesisUtterance(
-            text
-        );
-
-        // LANGUAGE
-        currentUtterance.lang =
-        languageSelect.value;
-
-        // SELECTED VOICE
-        const selectedVoice =
-        voices.find(
-            voice =>
-            voice.name ===
-            voiceSelect.value
-        );
-
-        // APPLY VOICE
-        if(selectedVoice){
-
-            currentUtterance.voice =
-            selectedVoice;
-
-        }
-
-        // SPEED
-        currentUtterance.rate =
-        parseFloat(
-            speedSlider.value
-        );
-
-        // PITCH
-        currentUtterance.pitch =
-        parseFloat(
-            pitchSlider.value
-        );
-
-        // VOLUME
-        currentUtterance.volume = 1;
-
-        // MOBILE EVENTS
-        currentUtterance.onstart =
-        ()=>{
-
-            console.log(
-                "Speech started"
-            );
-
-        };
-
-        currentUtterance.onerror =
-        (e)=>{
-
-            console.log(
-                "Speech Error:",
-                e
-            );
-
-           /* alert(
-                "Speech failed on this device/browser."
-            );*/
-
-        };
-
-        // SPEAK
-        synth.speak(
-            currentUtterance
-        );
-
-    },200);
-
-}
-// =====================================
-// CONVERT BUTTON
-// =====================================
-/*
-speakBtn.addEventListener(
-    "click",
-    ()=>{
-
-        const text =
-        textArea.value.trim();
-
-        // EMPTY CHECK
-        if(text === ""){
-
-            alert(
-                "Please enter text"
-            );
-
-            return;
-
-        }
-
-        lastText = text;
-
-        // RESUME AUDIO
-        synth.resume();
-
-        // SPEAK
-        speakText(text);
+        utterance.voice =
+        selectedVoice;
 
     }
-);
-*/
-speakBtn.addEventListener(
-    "click",
-    ()=>{
 
-        const text =
-        textArea.value.trim();
+    // =====================================
+    // SPEAK
+    // =====================================
 
-        if(text === ""){
+    speechSynthesis.speak(
+        utterance
+    );
 
-            alert(
-                "Please enter text"
-            );
+    // =====================================
+    // SAVE HISTORY
+    // =====================================
 
-            return;
+    saveHistory();
 
-        }
+    // BUTTON RESET
+    speakBtn.innerHTML =
+    "Convert To Speech";
 
-        lastText = text;
+    speakBtn.disabled =
+    false;
 
-        synth.resume();
+}
 
-        // SPEAK
-        speakText(text);
 
-        // SAVE HISTORY
-        fetch("save_history.php",{
+// =====================================
+// SAVE HISTORY
+// =====================================
+
+function saveHistory(){
+
+    fetch(
+
+        "../tts/save_history.php",
+
+        {
 
             method:"POST",
 
             headers:{
+
                 "Content-Type":
-                "application/x-www-form-urlencoded"
+                "application/json"
+
             },
 
-            body:
+            body:JSON.stringify({
 
-                "text=" +
-                encodeURIComponent(text)
+                text:
+                textArea.value,
 
-                +
+                language:
+                languageSelect.value,
 
-                "&language=" +
-                encodeURIComponent(
-                    languageSelect.value
-                )
+                voice:
+                voiceSelect.value,
 
-                +
+                speed:
+                speedSlider.value,
 
-                "&voice=" +
-                encodeURIComponent(
-                    voiceSelect.value
-                )
+                pitch:
+                pitchSlider.value
 
-                +
+            })
 
-                "&speed=" +
-                encodeURIComponent(
-                    speedSlider.value
-                )
+        }
 
-                +
+    );
 
-                "&pitch=" +
-                encodeURIComponent(
-                    pitchSlider.value
-                )
+}
 
-        });
 
-    }
-);
 // =====================================
-// PLAY BUTTON
+// PLAY
 // =====================================
 
 playBtn.addEventListener(
     "click",
     ()=>{
 
-        if(lastText !== ""){
+        if(pausedSpeech){
 
-            synth.resume();
+            speechSynthesis.resume();
 
-            speakText(lastText);
+            pausedSpeech = false;
 
         }
 
@@ -580,34 +549,101 @@ playBtn.addEventListener(
 
 
 // =====================================
-// STOP BUTTON
+// STOP
 // =====================================
 
 stopBtn.addEventListener(
     "click",
     ()=>{
 
-        synth.cancel();
+        speechSynthesis.pause();
+
+        pausedSpeech = true;
 
     }
 );
 
 
 // =====================================
-// DEBUGGING
+// CONVERT BUTTON
 // =====================================
 
-console.log(
-    "Nem Speak Loaded Successfully"
+speakBtn.addEventListener(
+    "click",
+    speakText
 );
 
 
 // =====================================
-// MOBILE SIDEBAR TOGGLE
+// LOAD HISTORY BACK
 // =====================================
 
-document.addEventListener(
-    "DOMContentLoaded",
+window.addEventListener(
+    "load",
+    ()=>{
+
+        const savedText =
+        localStorage.getItem(
+            "tts_text"
+        );
+
+        const savedLanguage =
+        localStorage.getItem(
+            "tts_language"
+        );
+
+        const savedVoice =
+        localStorage.getItem(
+            "tts_voice"
+        );
+
+        const savedSpeed =
+        localStorage.getItem(
+            "tts_speed"
+        );
+
+        const savedPitch =
+        localStorage.getItem(
+            "tts_pitch"
+        );
+
+        if(savedText){
+
+            textArea.value =
+            savedText;
+
+            languageSelect.value =
+            savedLanguage;
+
+            voiceSelect.value =
+            savedVoice;
+
+            speedSlider.value =
+            savedSpeed;
+
+            pitchSlider.value =
+            savedPitch;
+
+            speedValue.innerText =
+            savedSpeed;
+
+            pitchValue.innerText =
+            savedPitch;
+
+            updateCount();
+
+        }
+
+    }
+);
+
+
+// =====================================
+// MOBILE SIDEBAR
+// =====================================
+
+window.addEventListener(
+    "load",
     ()=>{
 
         const menuBtn =
@@ -620,110 +656,15 @@ document.addEventListener(
             "sidebar"
         );
 
-        // CHECK ELEMENTS EXIST
         if(menuBtn && sidebar){
 
-            menuBtn.addEventListener(
-                "click",
-                ()=>{
+            menuBtn.onclick = ()=>{
 
-                    sidebar.classList.toggle(
-                        "active"
-                    );
+                sidebar.classList.toggle(
+                    "active"
+                );
 
-                }
-            );
-
-        }
-
-    }
-);
-
-// =====================================
-// LOAD HISTORY DATA
-// =====================================
-
-window.addEventListener(
-    "load",
-    ()=>{
-
-        const savedText =
-        localStorage.getItem(
-            "tts_text"
-        );
-
-        if(savedText){
-
-            // LOAD TEXT
-            textArea.value =
-            savedText;
-
-            // LOAD LANGUAGE
-            const savedLanguage =
-            localStorage.getItem(
-                "tts_language"
-            );
-
-            if(savedLanguage){
-
-                languageSelect.value =
-                savedLanguage;
-
-                updateVoices();
-
-            }
-
-            // LOAD VOICE
-            const savedVoice =
-            localStorage.getItem(
-                "tts_voice"
-            );
-
-            if(savedVoice){
-
-                setTimeout(()=>{
-
-                    voiceSelect.value =
-                    savedVoice;
-
-                },200);
-
-            }
-
-            // LOAD SPEED
-            const savedSpeed =
-            localStorage.getItem(
-                "tts_speed"
-            );
-
-            if(savedSpeed){
-
-                speedSlider.value =
-                savedSpeed;
-
-                speedValue.innerText =
-                savedSpeed;
-
-            }
-
-            // LOAD PITCH
-            const savedPitch =
-            localStorage.getItem(
-                "tts_pitch"
-            );
-
-            if(savedPitch){
-
-                pitchSlider.value =
-                savedPitch;
-
-                pitchValue.innerText =
-                savedPitch;
-
-            }
-
-            // UPDATE COUNT
-            updateCharacterCount();
+            };
 
         }
 
