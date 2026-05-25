@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/speak.css">
-    <title>nem speak</title>
+    <title>nemi speak</title>
 </head>
 <body>
 
@@ -13,7 +13,7 @@
         <h2 class="logoTitle">
             <img src="../assets/images/logo.png" alt="Logo">
             <span>
-                Nem Speaks
+                Nemi Speaks
             </span>
         </h2>
         <ul>

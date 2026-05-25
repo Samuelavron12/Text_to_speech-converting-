@@ -5,7 +5,7 @@ require_once __DIR__ . "/config/auth_check.php";
 <!DOCTYPE html>
 <html>
 <head>
-<title>Dashboard</title>
+<title>nemi speaks</title>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>

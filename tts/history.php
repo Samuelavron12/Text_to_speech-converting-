@@ -50,7 +50,7 @@ $stmt->get_result();
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>History</title>
+<title>nemi speaks</title>
 
 <link rel="stylesheet"
 href="../assets/css/spe.css?v=<?php echo time(); ?>">
@@ -78,7 +78,7 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
             <h2 class="logoTitle">
                 <img src="../assets/images/logo.png" alt="Logo">
                 <span>
-                    Nem Speaks
+                    Nemi Speaks
                 </span>
             </h2>
 

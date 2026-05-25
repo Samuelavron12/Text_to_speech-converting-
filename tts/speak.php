@@ -12,7 +12,7 @@ require_once __DIR__ . "/../config/auth_check.php";
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Nem Speak</title>
+<title>Nemi Speaks</title>
 
 <link rel="stylesheet"
 href="../assets/css/spe.css?v=<?php echo time(); ?>">
@@ -30,15 +30,10 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
     <!-- MAIN CONTENT -->
     <div class="mobileTop">
 
-       <!-- <div class="mobileLogo">
-
-            🔊 Nem Speak
-
-        </div>---->
         <h2 class="logoTitle">
             <img src="../assets/images/logo.png" alt="Logo">
             <span>
-                Nem Speaks
+                Nemi Speaks
             </span>
         </h2>
 

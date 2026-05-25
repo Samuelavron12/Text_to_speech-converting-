@@ -16,7 +16,7 @@ require_once __DIR__ .
 content="width=device-width, initial-scale=1.0">
 
 <title>
-About System
+nemi speaks
 </title>
 
 <link rel="stylesheet"
@@ -37,15 +37,11 @@ href="../assets/css/about.css?v=<?php echo time(); ?>">
         <!-- MOBILE TOP -->
         <div class="mobileTop">
 
-            <!---<div class="mobileLogo">
-
-                🔊 Nem Speak
-
-            </div>---> 
+          
             <h2 class="logoTitle">
                 <img src="../assets/images/logo.png" alt="Logo">
                 <span>
-                    Nem Speaks
+                    Nemi Speaks
                 </span>
             </h2>
 
@@ -168,13 +164,13 @@ href="../assets/css/about.css?v=<?php echo time(); ?>">
             <div class="info-item">
                 <span class="label">Project Title:</span>
                 <span class="value">
-                   Text to Speech   Converting Machine
+                 design and implementation of an online text to speech reader
                 </span>
             </div>
 
             <div class="info-item">
                 <span class="label">Developed By:</span>
-                <span class="value">Nemi Tonye Ruben</span>
+                <span class="value">Nemi Tonye Reuben</span>
             </div>
 
             <div class="info-item">
@@ -186,7 +182,7 @@ href="../assets/css/about.css?v=<?php echo time(); ?>">
 
             <div class="info-item">
                 <span class="label">Supervisor:</span>
-                <span class="value">Dr Belema</span>
+                <span class="value">Mr. B. Oliseh</span>
             </div>
 
         </div>
