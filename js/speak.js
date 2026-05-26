@@ -437,9 +437,8 @@ async function speakText(){
         pitchSlider.value
     );
 
-    // =====================================
     // VOICE
-    // =====================================
+
 
     const selectedVoice =
 
@@ -457,18 +456,15 @@ async function speakText(){
 
     }
 
-    // =====================================
     // SPEAK
-    // =====================================
 
     speechSynthesis.speak(
         utterance
     );
 
-    // =====================================
-    // SAVE HISTORY
-    // =====================================
 
+    // SAVE HISTORY
+   
     saveHistory();
 
     // BUTTON RESET
@@ -481,9 +477,8 @@ async function speakText(){
 }
 
 
-// =====================================
 // SAVE HISTORY
-// =====================================
+
 
 function saveHistory(){
 
@@ -528,9 +523,9 @@ function saveHistory(){
 }
 
 
-// =====================================
+
 // PLAY
-// =====================================
+
 
 playBtn.addEventListener(
     "click",
@@ -548,9 +543,8 @@ playBtn.addEventListener(
 );
 
 
-// =====================================
 // STOP
-// =====================================
+
 
 stopBtn.addEventListener(
     "click",
@@ -564,9 +558,9 @@ stopBtn.addEventListener(
 );
 
 
-// =====================================
+
 // CONVERT BUTTON
-// =====================================
+
 
 speakBtn.addEventListener(
     "click",
@@ -574,9 +568,9 @@ speakBtn.addEventListener(
 );
 
 
-// =====================================
+
 // LOAD HISTORY BACK
-// =====================================
+
 
 window.addEventListener(
     "load",
@@ -638,9 +632,9 @@ window.addEventListener(
 );
 
 
-// =====================================
+
 // MOBILE SIDEBAR
-// =====================================
+
 
 window.addEventListener(
     "load",
