@@ -12,10 +12,10 @@ require_once __DIR__ . "/../config/auth_check.php";
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Nemi Speak</title>
+<title>Nem Speak</title>
 
 <link rel="stylesheet"
-href="../assets/css/spe.css">
+href="../assets/css/spe.css?v=<?php echo time(); ?>">
 
 </head>
 
@@ -30,8 +30,8 @@ href="../assets/css/spe.css">
     <div class="mobileTop">
 
         <div class="mobileLogo">
-            <img src="../assets/images/logo.png" alt="logo" >
-             Nemi Speak
+
+            🔊 Nem Speak
 
         </div>
 
@@ -68,42 +68,44 @@ href="../assets/css/spe.css">
                 <!-- TABS -->
                 <div class="tabs">
 
-                    <button
-                    id="textTab"
+                    <button id="textTab"
                     class="activeTab">
 
                         <img
-                        src="../assets/images/text.png"
+                        src="../assets/images/type.png"
                         alt="">
 
-                        Type Text
+                        <span>
+                            Type Text
+                        </span>
 
                     </button>
 
-                    <button
-                    id="uploadTab">
+                    <button id="uploadTab">
 
                         <img
                         src="../assets/images/upload.png"
                         alt="">
 
-                        Upload File
+                        <span>
+                            Upload File
+                        </span>
 
                     </button>
 
                 </div>
 
-                <!-- FILE INPUT -->
+                <!-- FILE -->
                 <input
                 type="file"
                 id="fileInput"
-                accept=".txt,.doc,.docx,.pdf,.ppt,.pptx,.html,.csv,.json,.xml"
+                accept=".txt,.html,.csv,.json,.xml,.docx,.pdf"
                 hidden>
 
                 <!-- TEXT -->
                 <textarea
                 id="text"
-                placeholder="Type or paste text here..."></textarea>
+                placeholder="Type or paste your text here..."></textarea>
 
                 <!-- COUNT -->
                 <div class="bottomEditor">
@@ -120,14 +122,17 @@ href="../assets/css/spe.css">
                 <button id="speakBtn">
 
                     <img
-                    src="../assets/images/play.png"
+                    src="../assets/images/convert.png"
                     alt="">
 
-                    Convert To Speech
+                    <span>
+                        Convert To Speech
+                    </span>
 
                 </button>
 
             </section>
+
 
             <!-- RIGHT -->
             <section class="rightPanel">
@@ -141,7 +146,9 @@ href="../assets/css/spe.css">
                         src="../assets/images/language.png"
                         alt="">
 
-                        Language
+                        <span>
+                            Language
+                        </span>
 
                     </h3>
 
@@ -203,6 +210,7 @@ href="../assets/css/spe.css">
 
                 </div>
 
+
                 <!-- VOICE -->
                 <div class="controlCard">
 
@@ -212,7 +220,9 @@ href="../assets/css/spe.css">
                         src="../assets/images/voice.png"
                         alt="">
 
-                        Voice
+                        <span>
+                            Voice
+                        </span>
 
                     </h3>
 
@@ -230,6 +240,7 @@ href="../assets/css/spe.css">
 
                 </div>
 
+
                 <!-- SPEED -->
                 <div class="controlCard">
 
@@ -241,7 +252,9 @@ href="../assets/css/spe.css">
                             src="../assets/images/speed.png"
                             alt="">
 
-                            Speech Speed
+                            <span>
+                                Speed
+                            </span>
 
                         </h3>
 
@@ -263,6 +276,7 @@ href="../assets/css/spe.css">
 
                 </div>
 
+
                 <!-- PITCH -->
                 <div class="controlCard">
 
@@ -274,7 +288,9 @@ href="../assets/css/spe.css">
                             src="../assets/images/pitch.png"
                             alt="">
 
-                            Pitch
+                            <span>
+                                Pitch
+                            </span>
 
                         </h3>
 
@@ -300,6 +316,7 @@ href="../assets/css/spe.css">
 
         </div>
 
+
         <!-- OUTPUT -->
         <section class="outputSection">
 
@@ -308,18 +325,14 @@ href="../assets/css/spe.css">
                 <div class="audioIcon">
 
                     <img
-                    src="../assets/images/audio.png"
+                    src="../assets/images/output.png"
                     alt="">
 
-                    Output
+                    <span>
+                        Audio Output
+                    </span>
 
                 </div>
-
-                <h3>
-
-                    Your output control is here
-
-                </h3>
 
                 <div class="audioControls">
 
@@ -329,7 +342,9 @@ href="../assets/css/spe.css">
                         src="../assets/images/play.png"
                         alt="">
 
-                        Play
+                        <span>
+                            Play
+                        </span>
 
                     </button>
 
@@ -339,7 +354,9 @@ href="../assets/css/spe.css">
                         src="../assets/images/stop.png"
                         alt="">
 
-                        Stop
+                        <span>
+                            Stop
+                        </span>
 
                     </button>
 
@@ -353,7 +370,7 @@ href="../assets/css/spe.css">
 
 </div>
 
-<script src="../js/speak.js"></script>
+<script src="../js/speak.js?v=<?php echo time(); ?>"></script>
 
 </body>
 </html>

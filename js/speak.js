@@ -2,111 +2,39 @@
 // ELEMENTS
 // =====================================
 
-const textArea =
-document.getElementById(
-    "text"
-);
+const uploadTab = document.getElementById("uploadTab");
+const fileInput = document.getElementById("fileInput");
+const textArea = document.getElementById("text");
+const charCount = document.getElementById("charCount");
 
-const languageSelect =
-document.getElementById(
-    "language"
-);
+const languageSelect = document.getElementById("language");
 
-const voiceSelect =
-document.getElementById(
-    "voice"
-);
+const speedSlider = document.getElementById("speed");
+const pitchSlider = document.getElementById("pitch");
 
-const speedSlider =
-document.getElementById(
-    "speed"
-);
+const speedValue = document.getElementById("speedValue");
+const pitchValue = document.getElementById("pitchValue");
 
-const pitchSlider =
-document.getElementById(
-    "pitch"
-);
-
-const speedValue =
-document.getElementById(
-    "speedValue"
-);
-
-const pitchValue =
-document.getElementById(
-    "pitchValue"
-);
-
-const charCount =
-document.getElementById(
-    "charCount"
-);
-
-const uploadTab =
-document.getElementById(
-    "uploadTab"
-);
-
-const fileInput =
-document.getElementById(
-    "fileInput"
-);
-
-const speakBtn =
-document.getElementById(
-    "speakBtn"
-);
-
-const playBtn =
-document.getElementById(
-    "playBtn"
-);
-
-const stopBtn =
-document.getElementById(
-    "stopBtn"
-);
-
+const speakBtn = document.getElementById("speakBtn");
+const playBtn = document.getElementById("playBtn");
+const stopBtn = document.getElementById("stopBtn");
 
 // =====================================
-// VARIABLES
+// AUDIO PLAYER
 // =====================================
 
-let voices = [];
-
-let utterance = null;
-
-let pausedSpeech = false;
-
-
-// =====================================
-// LOAD VOICES
-// =====================================
-
-function loadVoices(){
-
-    voices =
-    speechSynthesis.getVoices();
-
-}
-
-loadVoices();
-
-speechSynthesis.onvoiceschanged =
-loadVoices;
-
+let audioPlayer = new Audio();
+let currentAudioUrl = "";
 
 // =====================================
 // CHARACTER COUNT
 // =====================================
 
-function updateCount(){
+function updateCount() {
 
     charCount.innerText =
-
-    textArea.value.length +
-
-    " / 100000 characters";
+        textArea.value.length +
+        " / 100000 characters";
 
 }
 
@@ -115,36 +43,36 @@ textArea.addEventListener(
     updateCount
 );
 
-
 // =====================================
-// SPEED VALUE
+// SPEED
 // =====================================
 
 speedSlider.addEventListener(
     "input",
-    ()=>{
+    () => {
 
         speedValue.innerText =
-        speedSlider.value;
+            speedSlider.value;
+
+        audioPlayer.playbackRate =
+            parseFloat(speedSlider.value);
 
     }
 );
 
-
 // =====================================
-// PITCH VALUE
+// PITCH
 // =====================================
 
 pitchSlider.addEventListener(
     "input",
-    ()=>{
+    () => {
 
         pitchValue.innerText =
-        pitchSlider.value;
+            pitchSlider.value;
 
     }
 );
-
 
 // =====================================
 // FILE PICKER
@@ -152,13 +80,12 @@ pitchSlider.addEventListener(
 
 uploadTab.addEventListener(
     "click",
-    ()=>{
+    () => {
 
         fileInput.click();
 
     }
 );
-
 
 // =====================================
 // FILE EXTRACTION
@@ -166,54 +93,48 @@ uploadTab.addEventListener(
 
 fileInput.addEventListener(
     "change",
-    async ()=>{
+    async () => {
 
         const file =
-        fileInput.files[0];
+            fileInput.files[0];
 
-        if(!file) return;
+        if (!file) return;
 
         const formData =
-        new FormData();
+            new FormData();
 
         formData.append(
             "file",
             file
         );
 
-        try{
+        try {
 
             const response =
-            await fetch(
-
-                "../tts/upload_extract.php",
-
-                {
-
-                    method:"POST",
-
-                    body:formData
-
-                }
-
-            );
+                await fetch(
+                    "../tts/upload_extract.php",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
 
             const extractedText =
-            await response.text();
+                await response.text();
 
             textArea.value =
-            extractedText;
+                extractedText;
 
             updateCount();
 
         }
 
-        catch(error){
+        catch (error) {
 
             console.log(error);
 
             alert(
-                "Could not read file"
+                "File extraction failed"
             );
 
         }
@@ -221,66 +142,52 @@ fileInput.addEventListener(
     }
 );
 
-
 // =====================================
-// TRANSLATE TEXT
+// GOOGLE TRANSLATE
 // =====================================
 
 async function translateText(
-
     text,
-    targetLanguage
+    language
+) {
 
-){
+    try {
 
-    try{
-
-        // LANGUAGE CODE
-        const langCode =
-
-        targetLanguage
-        .split("-")[0];
-
-        // ENGLISH
-        if(langCode === "en"){
+        if (
+            language === "en-US" ||
+            language === "en-GB" ||
+            language === "en-NG"
+        ) {
 
             return text;
 
         }
 
-        // GOOGLE TRANSLATE
+        const targetLang =
+            language.split("-")[0];
+
         const response =
-        await fetch(
+            await fetch(
 
-            "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=" +
+                "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=" +
+                targetLang +
+                "&dt=t&q=" +
+                encodeURIComponent(text)
 
-            langCode +
-
-            "&dt=t&q=" +
-
-            encodeURIComponent(text)
-
-        );
+            );
 
         const data =
-        await response.json();
+            await response.json();
 
-        // EXTRACT TEXT
-        const translatedText =
-
-        data[0]
-        .map(
-
-            item => item[0]
-
-        )
-        .join("");
-
-        return translatedText;
+        return data[0]
+            .map(
+                item => item[0]
+            )
+            .join("");
 
     }
 
-    catch(error){
+    catch (error) {
 
         console.log(error);
 
@@ -290,86 +197,16 @@ async function translateText(
 
 }
 
-
 // =====================================
-// FIND BEST VOICE
-// =====================================
-
-function findVoice(
-
-    lang,
-    gender
-
-){
-
-    gender =
-    gender.toLowerCase();
-
-    // SAME LANGUAGE + GENDER
-    let selectedVoice =
-
-    voices.find(
-
-        voice =>
-
-        voice.lang === lang &&
-
-        voice.name
-        .toLowerCase()
-        .includes(gender)
-
-    );
-
-    // SAME LANGUAGE
-    if(!selectedVoice){
-
-        selectedVoice =
-
-        voices.find(
-
-            voice =>
-
-            voice.lang === lang
-
-        );
-
-    }
-
-    // PARTIAL MATCH
-    if(!selectedVoice){
-
-        selectedVoice =
-
-        voices.find(
-
-            voice =>
-
-            voice.lang
-            .includes(
-
-                lang.split("-")[0]
-
-            )
-
-        );
-
-    }
-
-    return selectedVoice;
-
-}
-
-
-// =====================================
-// SPEAK TEXT
+// GENERATE AUDIO
 // =====================================
 
-async function speakText(){
+async function speakText() {
 
     let text =
-    textArea.value.trim();
+        textArea.value.trim();
 
-    if(text === ""){
+    if (text === "") {
 
         alert(
             "Please enter text"
@@ -379,250 +216,251 @@ async function speakText(){
 
     }
 
-    // BUTTON LOADING
+    speakBtn.disabled = true;
+
     speakBtn.innerHTML =
-    "Loading...";
+        '<span>Loading...</span>';
 
-    speakBtn.disabled =
-    true;
-
-    // STOP PREVIOUS
-    speechSynthesis.cancel();
-
-    // LANGUAGE
-    const selectedLanguage =
-    languageSelect.value;
-
-    // GENDER
-    const selectedGender =
-    voiceSelect.value;
+    const selectedLang =
+        languageSelect.value;
 
     // =====================================
-    // TRANSLATE FIRST
+    // TRANSLATE
     // =====================================
 
     const translatedText =
-
-    await translateText(
-
-        text,
-        selectedLanguage
-
-    );
+        await translateText(
+            text,
+            selectedLang
+        );
 
     // =====================================
-    // CREATE SPEECH
+    // SAVE HISTORY
     // =====================================
 
-    utterance =
-    new SpeechSynthesisUtterance(
-
-        translatedText
-
+    localStorage.setItem(
+        "tts_text",
+        text
     );
 
-    // LANGUAGE
-    utterance.lang =
-    selectedLanguage;
+    localStorage.setItem(
+        "tts_language",
+        selectedLang
+    );
 
-    // SPEED
-    utterance.rate =
-    parseFloat(
+    localStorage.setItem(
+        "tts_speed",
         speedSlider.value
     );
 
-    // PITCH
-    utterance.pitch =
-    parseFloat(
+    localStorage.setItem(
+        "tts_pitch",
         pitchSlider.value
     );
 
-    // VOICE
+    try {
 
+        speakBtn.innerHTML =
+            '<span>Converting...</span>';
 
-    const selectedVoice =
+        const response =
+            await fetch(
+                "../tts/tts_generate.php",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify({
 
-    findVoice(
+                        text:
+                            translatedText,
 
-        selectedLanguage,
-        selectedGender
+                        language:
+                            selectedLang,
 
-    );
+                        speed:
+                            speedSlider.value
 
-    if(selectedVoice){
+                    })
+                }
+            );
 
-        utterance.voice =
-        selectedVoice;
+        const result =
+            await response.json();
 
-    }
+        if (!result.success) {
 
-    // SPEAK
+            throw new Error(
+                result.message
+            );
 
-    speechSynthesis.speak(
-        utterance
-    );
+        }
 
+        currentAudioUrl =
+            result.audio;
 
-    // SAVE HISTORY
-   
-    saveHistory();
+        audioPlayer.src =
+            currentAudioUrl;
 
-    // BUTTON RESET
-    speakBtn.innerHTML =
-    "Convert To Speech";
+        audioPlayer.playbackRate =
+            parseFloat(
+                speedSlider.value
+            );
 
-    speakBtn.disabled =
-    false;
+        audioPlayer.play();
 
-}
+        speakBtn.innerHTML =
+            '<span>Converted</span>';
 
+        setTimeout(
+            () => {
 
-// SAVE HISTORY
+                speakBtn.innerHTML =
+                    '<span>Convert To Speech</span>';
 
-
-function saveHistory(){
-
-    fetch(
-
-        "../tts/save_history.php",
-
-        {
-
-            method:"POST",
-
-            headers:{
-
-                "Content-Type":
-                "application/json"
+                speakBtn.disabled = false;
 
             },
+            2000
+        );
 
-            body:JSON.stringify({
+        // SAVE TO DATABASE
 
-                text:
-                textArea.value,
+        fetch(
+            "../tts/save_history.php",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+                body: JSON.stringify({
 
-                language:
-                languageSelect.value,
+                    text_content:
+                        text,
 
-                voice:
-                voiceSelect.value,
+                    language_used:
+                        selectedLang,
 
-                speed:
-                speedSlider.value,
+                    speech_speed:
+                        speedSlider.value,
 
-                pitch:
-                pitchSlider.value
+                    speech_pitch:
+                        pitchSlider.value
 
-            })
+                })
+            }
+        );
 
-        }
+    }
 
-    );
+    catch (error) {
+
+        console.log(error);
+
+        alert(
+            "Failed to generate audio"
+        );
+
+        speakBtn.disabled = false;
+
+        speakBtn.innerHTML =
+            '<span>Convert To Speech</span>';
+
+    }
 
 }
 
-
-
-// PLAY
-
-
-playBtn.addEventListener(
-    "click",
-    ()=>{
-
-        if(pausedSpeech){
-
-            speechSynthesis.resume();
-
-            pausedSpeech = false;
-
-        }
-
-    }
-);
-
-
-// STOP
-
-
-stopBtn.addEventListener(
-    "click",
-    ()=>{
-
-        speechSynthesis.pause();
-
-        pausedSpeech = true;
-
-    }
-);
-
-
-
+// =====================================
 // CONVERT BUTTON
-
+// =====================================
 
 speakBtn.addEventListener(
     "click",
     speakText
 );
 
+// =====================================
+// PLAY
+// =====================================
 
+playBtn.addEventListener(
+    "click",
+    () => {
 
-// LOAD HISTORY BACK
+        if (
+            audioPlayer.src
+        ) {
 
+            audioPlayer.play();
+
+        }
+
+    }
+);
+
+// =====================================
+// STOP
+// =====================================
+
+stopBtn.addEventListener(
+    "click",
+    () => {
+
+        audioPlayer.pause();
+
+    }
+);
+
+// =====================================
+// LOAD HISTORY
+// =====================================
 
 window.addEventListener(
     "load",
-    ()=>{
+    () => {
 
         const savedText =
-        localStorage.getItem(
-            "tts_text"
-        );
+            localStorage.getItem(
+                "tts_text"
+            );
 
         const savedLanguage =
-        localStorage.getItem(
-            "tts_language"
-        );
-
-        const savedVoice =
-        localStorage.getItem(
-            "tts_voice"
-        );
+            localStorage.getItem(
+                "tts_language"
+            );
 
         const savedSpeed =
-        localStorage.getItem(
-            "tts_speed"
-        );
+            localStorage.getItem(
+                "tts_speed"
+            );
 
         const savedPitch =
-        localStorage.getItem(
-            "tts_pitch"
-        );
+            localStorage.getItem(
+                "tts_pitch"
+            );
 
-        if(savedText){
+        if (savedText) {
 
             textArea.value =
-            savedText;
+                savedText;
 
             languageSelect.value =
-            savedLanguage;
-
-            voiceSelect.value =
-            savedVoice;
+                savedLanguage;
 
             speedSlider.value =
-            savedSpeed;
+                savedSpeed;
 
             pitchSlider.value =
-            savedPitch;
+                savedPitch;
 
             speedValue.innerText =
-            savedSpeed;
+                savedSpeed;
 
             pitchValue.innerText =
-            savedPitch;
+                savedPitch;
 
             updateCount();
 
@@ -631,34 +469,37 @@ window.addEventListener(
     }
 );
 
-
-
-// MOBILE SIDEBAR
-
+// =====================================
+// MOBILE MENU
+// =====================================
 
 window.addEventListener(
     "load",
-    ()=>{
+    () => {
 
         const menuBtn =
-        document.getElementById(
-            "menuBtn"
-        );
+            document.getElementById(
+                "menuBtn"
+            );
 
         const sidebar =
-        document.getElementById(
-            "sidebar"
-        );
+            document.getElementById(
+                "sidebar"
+            );
 
-        if(menuBtn && sidebar){
+        if (
+            menuBtn &&
+            sidebar
+        ) {
 
-            menuBtn.onclick = ()=>{
+            menuBtn.onclick =
+                () => {
 
-                sidebar.classList.toggle(
-                    "active"
-                );
+                    sidebar.classList.toggle(
+                        "active"
+                    );
 
-            };
+                };
 
         }
 

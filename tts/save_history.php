@@ -1,37 +1,49 @@
 <?php
 
-session_start();
+require_once __DIR__ .
+"/../config/auth_check.php";
 
-require_once "../config/db.php";
+require_once __DIR__ .
+"/../config/db.php";
 
+// JSON DATA
+$data = json_decode(
 
-// CHECK LOGIN
-if(!isset($_SESSION['user_id'])){
+    file_get_contents(
+        "php://input"
+    ),
 
+    true
+
+);
+
+// CHECK
+if(!$data){
+
+    echo "No data";
     exit;
 
 }
 
-
+// USER
 $user_id =
 $_SESSION['user_id'];
 
-
-// GET DATA
+// VALUES
 $text =
-$_POST['text'];
+$data['text_content'];
 
 $language =
-$_POST['language'];
+$data['language_used'];
 
 $voice =
-$_POST['voice'];
+$data['voice_used'];
 
 $speed =
-$_POST['speed'];
+$data['speech_speed'];
 
 $pitch =
-$_POST['pitch'];
+$data['speech_pitch'];
 
 
 // INSERT
@@ -48,13 +60,30 @@ INSERT INTO tts_history(
 
 )
 
-VALUES(?,?,?,?,?,?)
+VALUES(
+
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?
+
+)
 
 ";
 
-
 $stmt =
 $conn->prepare($sql);
+
+// CHECK SQL
+if(!$stmt){
+
+    die(
+        $conn->error
+    );
+
+}
 
 $stmt->bind_param(
 
@@ -69,9 +98,14 @@ $stmt->bind_param(
 
 );
 
+// EXECUTE
+if($stmt->execute()){
 
-$stmt->execute();
+    echo "success";
 
-echo "saved";
+}else{
 
+    echo $stmt->error;
+
+}
 ?>

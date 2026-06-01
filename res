@@ -1751,3 +1751,734 @@ window.addEventListener(
     }
 );
 console.log(voices);
+
+
+
+
+
+
+/////////////
+speak.js        
+////////
+// =====================================
+// ELEMENTS
+// =====================================
+
+const uploadTab =
+document.getElementById(
+    "uploadTab"
+);
+
+const fileInput =
+document.getElementById(
+    "fileInput"
+);
+
+const textArea =
+document.getElementById(
+    "text"
+);
+
+const charCount =
+document.getElementById(
+    "charCount"
+);
+
+const languageSelect =
+document.getElementById(
+    "language"
+);
+
+const voiceSelect =
+document.getElementById(
+    "voice"
+);
+
+const speedSlider =
+document.getElementById(
+    "speed"
+);
+
+const pitchSlider =
+document.getElementById(
+    "pitch"
+);
+
+const speedValue =
+document.getElementById(
+    "speedValue"
+);
+
+const pitchValue =
+document.getElementById(
+    "pitchValue"
+);
+
+const speakBtn =
+document.getElementById(
+    "speakBtn"
+);
+
+const playBtn =
+document.getElementById(
+    "playBtn"
+);
+
+const stopBtn =
+document.getElementById(
+    "stopBtn"
+);
+
+
+// =====================================
+// VARIABLES
+// =====================================
+
+let voices = [];
+
+let utterance;
+
+let paused = false;
+
+
+// =====================================
+// LOAD VOICES
+// =====================================
+
+function loadVoices(){
+
+    voices =
+    speechSynthesis.getVoices();
+
+}
+
+loadVoices();
+
+speechSynthesis.onvoiceschanged =
+loadVoices;
+
+
+// =====================================
+// CHARACTER COUNT
+// =====================================
+
+function updateCount(){
+
+    charCount.innerText =
+
+    textArea.value.length +
+
+    " / 100000 characters";
+
+}
+
+textArea.addEventListener(
+    "input",
+    updateCount
+);
+
+
+// =====================================
+// SPEED
+// =====================================
+
+speedSlider.addEventListener(
+    "input",
+    ()=>{
+
+        speedValue.innerText =
+        speedSlider.value;
+
+    }
+);
+
+
+// =====================================
+// PITCH
+// =====================================
+
+pitchSlider.addEventListener(
+    "input",
+    ()=>{
+
+        pitchValue.innerText =
+        pitchSlider.value;
+
+    }
+);
+
+
+// =====================================
+// FILE PICKER
+// =====================================
+
+uploadTab.addEventListener(
+    "click",
+    ()=>{
+
+        fileInput.click();
+
+    }
+);
+
+
+// =====================================
+// FILE EXTRACTION
+// =====================================
+
+fileInput.addEventListener(
+    "change",
+    async ()=>{
+
+        const file =
+        fileInput.files[0];
+
+        if(!file) return;
+
+        const formData =
+        new FormData();
+
+        formData.append(
+            "file",
+            file
+        );
+
+        try{
+
+            const response =
+            await fetch(
+
+                "../tts/upload_extract.php",
+
+                {
+
+                    method:"POST",
+
+                    body:formData
+
+                }
+
+            );
+
+            const extractedText =
+            await response.text();
+
+            textArea.value =
+            extractedText;
+
+            updateCount();
+
+        }
+
+        catch(error){
+
+            console.log(error);
+
+            alert(
+                "File extraction failed"
+            );
+
+        }
+
+    }
+);
+
+
+// =====================================
+// TRANSLATE TEXT
+// =====================================
+
+async function translateText(
+
+    text,
+    selectedLang
+
+){
+
+    try{
+
+        // ENGLISH
+        if(
+
+            selectedLang === "en-US" ||
+            selectedLang === "en-GB" ||
+            selectedLang === "en-NG"
+
+        ){
+
+            return text;
+
+        }
+
+        // GOOGLE TRANSLATE
+        const response =
+        await fetch(
+
+            "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=" +
+
+            selectedLang.split("-")[0] +
+
+            "&dt=t&q=" +
+
+            encodeURIComponent(text)
+
+        );
+
+        const data =
+        await response.json();
+
+        return data[0]
+        .map(item => item[0])
+        .join("");
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        return text;
+
+    }
+
+}
+
+
+// =====================================
+// FIND VOICE
+// =====================================
+
+function findVoice(
+
+    selectedLang,
+    gender
+
+){
+
+    // SAME LANGUAGE + GENDER
+    let selectedVoice =
+
+    voices.find(
+
+        voice =>
+
+        voice.lang === selectedLang &&
+
+        voice.name
+        .toLowerCase()
+        .includes(gender)
+
+    );
+
+    // SAME LANGUAGE
+    if(!selectedVoice){
+
+        selectedVoice =
+
+        voices.find(
+
+            voice =>
+
+            voice.lang === selectedLang
+
+        );
+
+    }
+
+    // PARTIAL MATCH
+    if(!selectedVoice){
+
+        selectedVoice =
+
+        voices.find(
+
+            voice =>
+
+            voice.lang.includes(
+
+                selectedLang.split("-")[0]
+
+            )
+
+        );
+
+    }
+
+    return selectedVoice;
+
+}
+
+
+// =====================================
+// SPEAK TEXT
+// =====================================
+
+async function speakText(){
+
+    let text =
+    textArea.value.trim();
+
+    if(text === ""){
+
+        alert(
+            "Please enter text"
+        );
+
+        return;
+       
+    }
+
+    // LOADING
+    speakBtn.innerHTML =
+
+    '<img src="../assets/images/loading.png">' +
+
+    '<span>Loading...</span>';
+
+    speakBtn.disabled = true;
+
+    // LANGUAGE
+    const selectedLang =
+    languageSelect.value;
+
+    // GENDER
+    const gender =
+    voiceSelect.value
+    .toLowerCase();
+
+    // STOP PREVIOUS
+    speechSynthesis.cancel();
+
+    
+    // =====================================
+    // TRANSLATE
+    // =====================================
+
+    text =
+    await translateText(
+
+        text,
+        selectedLang
+
+    );
+
+    // =====================================
+    // CONVERTING STATUS
+    // =====================================
+
+    speakBtn.innerHTML =
+
+    '<img src="../assets/images/loading.png">' +
+
+    '<span>Converting...</span>';
+
+    // =====================================
+    // FIND VOICE
+    // =====================================
+
+    const selectedVoice =
+
+    findVoice(
+
+        selectedLang,
+        gender
+
+    );
+
+    // =====================================
+    // SPLIT LARGE TEXT
+    // =====================================
+
+    const chunkSize = 180;
+
+    const chunks = [];
+
+    for(
+
+        let i = 0;
+
+        i < text.length;
+
+        i += chunkSize
+
+    ){
+
+        chunks.push(
+
+            text.substring(
+
+                i,
+                i + chunkSize
+
+            )
+
+        );
+
+    }
+
+    // =====================================
+    // SPEAK CHUNKS
+    // =====================================
+
+    let currentChunk = 0;
+
+    function speakChunk(){
+
+        // FINISHED
+        if(currentChunk >= chunks.length){
+
+            speakBtn.innerHTML =
+
+            '<img src="../assets/images/convert.png">' +
+
+            '<span>Converted</span>';
+
+            setTimeout(()=>{
+
+                speakBtn.innerHTML =
+
+                '<img src="../assets/images/convert.png">' +
+
+                '<span>Convert To Speech</span>';
+
+                speakBtn.disabled = false;
+
+            },2000);
+
+            return;
+
+        }
+
+        utterance =
+        new SpeechSynthesisUtterance(
+
+            chunks[currentChunk]
+
+        );
+
+        // LANGUAGE
+        utterance.lang =
+        selectedLang;
+
+        // SPEED
+        utterance.rate =
+        parseFloat(
+            speedSlider.value
+        );
+
+        // PITCH
+        utterance.pitch =
+        parseFloat(
+            pitchSlider.value
+        );
+
+        // VOICE
+        if(selectedVoice){
+
+            utterance.voice =
+            selectedVoice;
+
+        }
+
+        // NEXT
+        utterance.onend = ()=>{
+
+            currentChunk++;
+
+            speakChunk();
+
+        };
+
+        // SPEAK
+        speechSynthesis.speak(
+            utterance
+        );
+
+    }
+
+    // START
+    speakChunk();
+
+    // =====================================
+    // SAVE HISTORY
+    // =====================================
+
+    fetch(
+
+        "../tts/save_history.php",
+
+        {
+
+            method:"POST",
+
+            headers:{
+
+                "Content-Type":
+                "application/json"
+
+            },
+
+            body:JSON.stringify({
+
+                text_content:
+                textArea.value,
+
+                language_used:
+                selectedLang,
+
+                voice_used:
+                voiceSelect.value,
+
+                speech_speed:
+                speedSlider.value,
+
+                speech_pitch:
+                pitchSlider.value
+
+            })
+
+        }
+
+    );
+
+}
+
+
+// =====================================
+// CONVERT BUTTON
+// =====================================
+
+speakBtn.addEventListener(
+    "click",
+    speakText
+);
+
+
+// =====================================
+// PLAY
+// =====================================
+
+playBtn.addEventListener(
+    "click",
+    ()=>{
+
+        speechSynthesis.resume();
+
+        paused = false;
+
+    }
+);
+
+
+// =====================================
+// STOP
+// =====================================
+
+stopBtn.addEventListener(
+    "click",
+    ()=>{
+
+        speechSynthesis.pause();
+
+        paused = true;
+
+    }
+);
+
+
+// =====================================
+// MOBILE MENU
+// =====================================
+
+window.addEventListener(
+    "load",
+    ()=>{
+
+        const menuBtn =
+        document.getElementById(
+            "menuBtn"
+        );
+
+        const sidebar =
+        document.getElementById(
+            "sidebar"
+        );
+
+        if(menuBtn && sidebar){
+
+            menuBtn.onclick = ()=>{
+
+                sidebar.classList.toggle(
+                    "active"
+                );
+
+            };
+
+        }
+
+    }
+);
+
+
+// =====================================
+// LOAD HISTORY BACK
+// =====================================
+
+window.addEventListener(
+    "load",
+    ()=>{
+
+        const savedText =
+        localStorage.getItem(
+            "tts_text"
+        );
+
+        const savedLanguage =
+        localStorage.getItem(
+            "tts_language"
+        );
+
+        const savedVoice =
+        localStorage.getItem(
+            "tts_voice"
+        );
+
+        const savedSpeed =
+        localStorage.getItem(
+            "tts_speed"
+        );
+
+        const savedPitch =
+        localStorage.getItem(
+            "tts_pitch"
+        );
+
+        if(savedText){
+
+            textArea.value =
+            savedText;
+
+            languageSelect.value =
+            savedLanguage;
+
+            voiceSelect.value =
+            savedVoice;
+
+            speedSlider.value =
+            savedSpeed;
+
+            pitchSlider.value =
+            savedPitch;
+
+            speedValue.innerText =
+            savedSpeed;
+
+            pitchValue.innerText =
+            savedPitch;
+
+            updateCount();
+
+        }
+
+    }
+);

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Installed Voices</h2>
+
+<button onclick="showVoices()">
+Show Voices
+</button>
+
+<pre id="output"></pre>
+
+<script>
+
+function showVoices(){
+
+    let voices =
+    speechSynthesis.getVoices();
+
+    let output = "";
+
+    voices.forEach(v=>{
+
+        output +=
+        "Name: " + v.name +
+        "\nLanguage: " + v.lang +
+        "\n-------------------\n";
+
+    });
+
+    document.getElementById(
+        "output"
+    ).textContent = output;
+
+}
+
+speechSynthesis.onvoiceschanged =
+showVoices;
+
+</script>
+
+</body>
+</html>
