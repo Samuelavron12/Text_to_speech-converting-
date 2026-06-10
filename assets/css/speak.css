@@ -25,7 +25,7 @@ body{
 /* SIDEBAR */
 /* SIDEBAR */
 .sidebar{
-    width:240px;
+    width:280px;
     height:100vh;
     background:white;
 
@@ -36,8 +36,7 @@ body{
     padding:30px 20px;
 
     box-shadow:0 10px 30px rgba(0,0,0,0.05);
-
-    overflow-y:auto;
+    overflow-y: auto;
     z-index:1000;
 }
 .sidebar h2{
@@ -159,7 +158,88 @@ MOBILE TOP BAR
     font-size:24px;
     cursor:pointer;
 }
+.sidebar{
 
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+
+}
+
+.sidebar-links{
+
+    flex:1;
+
+}
+
+/* PROFILE AT BOTTOM */
+
+.sidebar-profile{
+
+    margin-top:auto;
+
+    border-top:1px solid rgba(255,255,255,.1);
+
+    padding:15px;
+
+}
+
+.sidebar-profile a{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    text-decoration:none;
+
+    color:#fff;
+
+    border-radius:10px;
+
+    padding:10px;
+
+    transition:.3s;
+
+}
+
+.sidebar-profile a:hover{
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.sidebar-profile img{
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+}
+
+.profile-info{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+.profile-name{
+
+    font-size:14px;
+    color: #000;
+    font-weight:600;
+
+}
+
+.profile-email{
+    color: #000;
+    font-size:12px;
+    opacity:.7;
+
+}
 
 /* =====================================
 SIDEBAR TRANSITION

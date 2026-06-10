@@ -39,7 +39,7 @@ href="../assets/css/about.css?v=<?php echo time(); ?>">
 
           
             <h2 class="logoTitle">
-                <img src="../assets/images/logo.png" alt="Logo">
+        <!----        <img src="../assets/images/logo.png" alt="Logo">----------->
                 <span>
                     Nemi Speaks
                 </span>
@@ -77,12 +77,12 @@ href="../assets/css/about.css?v=<?php echo time(); ?>">
             <div class="aboutText">
 
                 <h2>
-                    Nem Speak Text To Speech
+                    Nemi Speak Text To Speech
                 </h2>
 
                 <p>
 
-                    Nem Speak is a web-based
+                    Nemi Speak is a web-based
                     Text To Speech conversion
                     system developed to convert
                     written text into natural
@@ -129,7 +129,7 @@ href="../assets/css/about.css?v=<?php echo time(); ?>">
 
                 <p>
 
-                    Nem Speak also includes
+                    Nemi Speak also includes
                     a history management
                     feature that stores
                     previous conversions
@@ -146,7 +146,7 @@ href="../assets/css/about.css?v=<?php echo time(); ?>">
             <div class="aboutImage">
 
                 <img
-                src="../assets/images/cpr.png"
+                src="../assets/images/backgg.png"
                 alt="Text To Speech">
 
             </div>

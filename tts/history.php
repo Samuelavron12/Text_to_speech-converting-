@@ -76,7 +76,8 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
 
             </div>---->
             <h2 class="logoTitle">
-                <img src="../assets/images/logo.png" alt="Logo">
+                <!-------
+                <img src="../assets/images/logo.png" alt="Logo">---------------->
                 <span>
                     Nemi Speaks
                 </span>

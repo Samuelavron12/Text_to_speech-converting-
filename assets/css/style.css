@@ -146,6 +146,36 @@ select, button{
     border: 1px solid #000;
 }
 
+.main-content{
+
+    margin-left:260px;
+
+    padding:30px;
+
+}
+
+@media(max-width:768px){
+
+    .sidebar{
+
+        left:-260px;
+
+    }
+
+    .sidebar.active{
+
+        left:0;
+
+    }
+
+    .main-content{
+
+        margin-left:0;
+
+    }
+
+}
+
 @media (max-width:1024px){
     .auth-container{
         width:500px;

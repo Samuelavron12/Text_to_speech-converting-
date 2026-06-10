@@ -31,7 +31,7 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
 
         <div class="mobileLogo">
 
-            🔊 Nem Speak
+             Nemi Speak
 
         </div>
 
@@ -72,7 +72,7 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
                     class="activeTab">
 
                         <img
-                        src="../assets/images/type.png"
+                        src="../assets/images/text.png"
                         alt="">
 
                         <span>
@@ -285,7 +285,7 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
                         <h3>
 
                             <img
-                            src="../assets/images/pitch.png"
+                            src="../assets/images/voice.png"
                             alt="">
 
                             <span>
@@ -351,11 +351,11 @@ href="../assets/css/spe.css?v=<?php echo time(); ?>">
                     <button id="stopBtn">
 
                         <img
-                        src="../assets/images/stop.png"
+                        src="../assets/images/pause.png"
                         alt="">
 
                         <span>
-                            Stop
+                            pause
                         </span>
 
                     </button>
